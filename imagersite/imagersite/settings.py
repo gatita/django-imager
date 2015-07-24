@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'imager_profile',
+    'imager_images',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -106,7 +107,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # whenever a request comes in that starts with /static/
-# jango will look inside this folder, and any path segments
+# django will look inside this folder, and any path segments
 # that come after that will be relevant to that roo
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 

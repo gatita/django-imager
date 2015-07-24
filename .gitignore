@@ -2,8 +2,8 @@
 media/*
 !media/.gitkeep
 
-imagersite/imager_profile/migrations/*
-!imagersite/imager_profile/migrations/.gitkeep
+imagersite/*/migrations/*
+!imagersite/*/migrations/.gitkeep
 
 
 # Byte-compiled / optimized / DLL files

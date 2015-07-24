@@ -105,3 +105,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+# whenever a request comes in that starts with /static/
+# jango will look inside this folder, and any path segments
+# that come after that will be relevant to that roo
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Media file handling
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

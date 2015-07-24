@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 @python_2_unicode_compatible
@@ -10,6 +12,7 @@ class ImagerProfile(models.Model):
         related_name='profile',
         null=False
     )
+
     camera = models.CharField(
         max_length=255,
         help_text='What is the make and model of your camera?'
@@ -18,8 +21,19 @@ class ImagerProfile(models.Model):
     website = models.URLField()
     photo_genre = models.CharField(max_length=255)
 
+    objects = models.Manager()
+
     def is_active(self):
         pass
 
     def __str__(self):
-        pass
+        return "{}'s profile".format(self.user.username)
+
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, **kwargs):
+    try:
+        instance.profile
+    except ImagerProfile.DoesNotExist:
+        instance.profile = ImagerProfile()
+        instance.profile.save()

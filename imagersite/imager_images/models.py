@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 
 @python_2_unicode_compatible
 class Photo(models.Model):
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         User,
-        related_name='photo',
+        related_name='photos',
         null=False
     )
 
@@ -49,6 +49,8 @@ class Album(models.Model):
     cover = models.ForeignKey(
         Photo,
         related_name='album_cover')
+
+    objects = models.Manager()
 
     def __str__(self):
         return "{}'s album".format(self.user.username)

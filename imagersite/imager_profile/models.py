@@ -14,9 +14,6 @@ class ImagerProfile(models.Model):
     website = models.URLField()
     photo_genre = models.CharField()
 
-    def create_imager_profile(self):
-        pass
-
     def is_active(self):
         pass
 

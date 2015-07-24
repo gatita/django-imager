@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
 from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 
 
 @python_2_unicode_compatible
@@ -31,9 +31,17 @@ class ImagerProfile(models.Model):
 
 
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, **kwargs):
+def auto_create_profile(sender, instance, **kwargs):
     try:
         instance.profile
     except ImagerProfile.DoesNotExist:
         instance.profile = ImagerProfile()
         instance.profile.save()
+
+
+@receiver(post_delete, sender=User)
+def auto_delete_profile(sender, instance, **kwargs):
+    try:
+        instance.profile.delete()
+    except ImagerProfile.DoesNotExist:
+        pass

@@ -1,3 +1,11 @@
+# PROJECT-SPECIFIC IGNORES
+media/*
+!media/.gitkeep
+
+imager_profile/migrations/*
+!imager_profile/migrations/.gitkeep
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -55,7 +63,3 @@ docs/_build/
 
 # PyBuilder
 target/
-
-# media files
-media/*
-!media/.gitkeep

@@ -28,6 +28,10 @@ class ImagerProfile(models.Model):
         return [profile for profile in cls.objects.all()
                 if profile.user.is_active]
 
+    @property
+    def is_active(self):
+        return self.user.is_active
+
     def __str__(self):
         return "{}'s profile".format(self.user.username)
 

@@ -1,6 +1,8 @@
 from django.apps import AppConfig
 
+
 class ImagerProfileConfig(AppConfig):
     def ready(self):
+        import signals
         ImagerProfile = self.get_model('ImagerProfile')
         # import signals module

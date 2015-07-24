@@ -43,9 +43,11 @@ class Album(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
+
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(null=True, blank=True)
     date_published = models.DateTimeField(null=True, blank=True)
+
     cover = models.ForeignKey(
         Photo,
         related_name='album_cover',

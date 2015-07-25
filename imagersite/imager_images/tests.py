@@ -15,7 +15,9 @@ class UserFactory(factory.django.DjangoModelFactory):
     first_name = fake.first_name()
     last_name = fake.last_name()
     username = factory.LazyAttribute(lambda n: 'user{0}'.format(n.first_name))
-    email = factory.LazyAttribute(lambda n: '{0}@example.com'.format(n.first_name))
+    email = factory.LazyAttribute(
+        lambda n: '{0}@example.com'.format(n.first_name)
+    )
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):

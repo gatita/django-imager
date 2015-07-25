@@ -54,3 +54,33 @@ class PhotoTestCase(TestCase):
         self.assertEqual('Photo owned by {}'.format(self.user.username),
                          str(self.test_photo))
 
+
+class AlbumTestCase(TestCase):
+
+    def setUp(self):
+        self.user = UserFactory.create()
+        self.photo = PhotoFactory.create(user=self.user)
+
+    def test_create_album(self):
+        assert len(Album.objects.all()) == 0
+        self.test_album = AlbumFactory.create(user=self.user)
+        assert len(Album.objects.all()) == 1
+
+    def test_album_user_relationship(self):
+        self.test_album = AlbumFactory.create(user=self.user)
+        assert self.test_album.user == self.user
+
+    def test_new_album_contains_no_pictures(self):
+        self.test_album = AlbumFactory.create(user=self.user)
+        assert len(self.test_album.photos.all()) == 0
+
+    def test_add_photos_to_album(self):
+        self.test_album = AlbumFactory.create(user=self.user)
+        self.test_album.photos.add(self.photo)
+        assert len(self.test_album.photos.all()) == 1
+
+    def test_album_photo_relationship(self):
+        self.test_album = AlbumFactory.create(user=self.user)
+        self.test_album.photos.add(self.photo)
+        assert self.photo.albums.all()[0] == self.test_album
+        assert self.test_album.photos.all()[0] == self.photo

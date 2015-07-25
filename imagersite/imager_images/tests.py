@@ -14,23 +14,38 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     first_name = fake.first_name()
     last_name = fake.last_name()
-    username = factory.Sequence(lambda n: 'user{}'.format(n))
-    email = factory.Sequence(lambda n: 'user{}@example.com'.format(n))
+    username = factory.LazyAttribute(lambda n: 'user{0}'.format(n.first_name))
+    email = factory.LazyAttribute(lambda n: '{0}@example.com'.format(n.first_name))
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Photo
 
-    user = 
+    img = fake.mime_type()
+    title = fake.sentence()
+    description = fake.sentence()
+
+
+class AlbumFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Album
+
+    title = fake.sentence()
+    description = fake.text()
 
 
 class PhotoTestCase(TestCase):
 
     def setUp(self):
-        user = UserFactory.build()
+        self.user = UserFactory.create()
 
-    def tearDown(self):
-        pass
+    def test_create_photo(self):
+        assert len(Photo.objects.all()) == 0
+        self.test_photo = PhotoFactory.create(user=self.user)
+        assert len(Photo.objects.all()) == 1
 
-    def test_
+    def test_photo_user_relationship(self):
+        self.test_photo = PhotoFactory.create(user=self.user)
+        assert self.test_photo.user == self.user
+

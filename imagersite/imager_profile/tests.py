@@ -48,16 +48,31 @@ class ProfileTestCase(TestCase):
             ImagerProfile.objects.count()
         )
 
-    def test_profile_is_active_method(self):
+    def test_profile_is_active_property(self):
         self.user0.save()
         self.profile0 = ImagerProfile.objects.all()[0]
 
         self.assertTrue(self.profile0.is_active)
 
-    def test_profile_is_active_when_user_inactive(self):
+    def test_profile_is_active_property_when_user_inactive(self):
         self.user0.is_active = False
         self.user0.save()
 
         self.profile0 = ImagerProfile.objects.all()[0]
 
         self.assertFalse(self.profile0.is_active)
+
+    def test_profile_active_classmethod(self):
+        self.user0.save()
+        self.user1.save()
+        self.user2.save()
+
+        self.user0 = User.objects.all()[0]
+        self.user1 = User.objects.all()[1]
+        self.user2 = User.objects.all()[2]
+
+        active_list = ImagerProfile.active()
+
+        self.assertTrue(self.user0.profile in active_list)
+        self.assertTrue(self.user1.profile in active_list)
+        self.assertTrue(self.user2.profile in active_list)

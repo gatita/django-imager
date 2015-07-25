@@ -49,3 +49,8 @@ class PhotoTestCase(TestCase):
         self.test_photo = PhotoFactory.create(user=self.user)
         assert self.test_photo.user == self.user
 
+    def test_photo__str__method(self):
+        self.test_photo = PhotoFactory.create(user=self.user)
+        self.assertEqual('Photo owned by {}'.format(self.user.username),
+                         str(self.test_photo))
+

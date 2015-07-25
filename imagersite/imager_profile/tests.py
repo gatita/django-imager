@@ -63,16 +63,32 @@ class ProfileTestCase(TestCase):
         self.assertFalse(self.profile0.is_active)
 
     def test_profile_active_classmethod(self):
-        self.user0.save()
-        self.user1.save()
-        self.user2.save()
+        usrs = [self.user0, self.user1, self.user2]
 
-        self.user0 = User.objects.all()[0]
-        self.user1 = User.objects.all()[1]
-        self.user2 = User.objects.all()[2]
+        for i, each in enumerate(usrs):
+            each.save()
+            each = User.objects.all()[i]
 
         active_list = ImagerProfile.active()
 
-        self.assertTrue(self.user0.profile in active_list)
-        self.assertTrue(self.user1.profile in active_list)
-        self.assertTrue(self.user2.profile in active_list)
+        for each in usrs:
+            self.assertTrue(each.profile in active_list)
+
+    def test_profile_active_classmethod_with_inactive_users(self):
+        usrs = [self.user0, self.user1, self.user2]
+
+        for i, each in enumerate(usrs):
+
+            if i % 2 != 0:
+                each.is_active = False
+
+            each.save()
+            each = User.objects.all()[i]
+
+        active_list = ImagerProfile.active()
+
+        for each in usrs:
+            if each == self.user1:
+                self.assertFalse(each.profile in active_list)
+            else:
+                self.assertTrue(each.profile in active_list)

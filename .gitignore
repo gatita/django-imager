@@ -1,3 +1,11 @@
+# PROJECT-SPECIFIC IGNORES
+media/*
+!media/.gitkeep
+
+imagersite/*/migrations/*
+!imagersite/*/migrations/.gitkeep
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

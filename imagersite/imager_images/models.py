@@ -45,7 +45,6 @@ class Album(models.Model):
         Photo,
         related_name='album_cover',
         null=True)
-    objects = models.Manager()
 
     def __str__(self):
         return "{}'s {} album".format(self.user.username, self.title)

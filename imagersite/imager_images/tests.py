@@ -55,7 +55,7 @@ class PhotoTestCase(TestCase):
             self.user.photos.first().title
         )
 
-    def test_photo__str__method(self):
+    def test_photo_str_method(self):
         self.test_photo = PhotoFactory.create(user=self.user)
         self.assertEqual(
             "{} - Photo by {}".format(

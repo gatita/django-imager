@@ -5,6 +5,19 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 
 
+# Use a modified manager instead of writing a class method to return a
+# list comprehension; the manager will return a queryset, which is
+# lazily-evaluated, which means that it won't be evaluated until the
+# last possible moment.
+# The list comprehension is not "The Django Way" since it reaches out
+# above the class, whereas Django prefers these types of things to be
+# single-row operations.
+class ActiveProfileManager(models.Manager):
+    def get_queryset(self):
+        return super(ActiveProfileManager, self).get_queryset()\
+            .filter(user__is_active=True)
+
+
 @python_2_unicode_compatible
 class ImagerProfile(models.Model):
     user = models.OneToOneField(
@@ -22,11 +35,7 @@ class ImagerProfile(models.Model):
     photo_genre = models.CharField(max_length=255)
 
     objects = models.Manager()
-
-    @classmethod
-    def active(cls):
-        return [profile for profile in cls.objects.all()
-                if profile.user.is_active]
+    active = ActiveProfileManager()
 
     @property
     def is_active(self):

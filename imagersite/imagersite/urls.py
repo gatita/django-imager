@@ -20,4 +20,5 @@ from imagersite import views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.HomePageView.as_view(), name='home'),
+    url(r'^accounts/', include('registration.backends.default.urls'))
 ]

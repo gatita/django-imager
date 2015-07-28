@@ -50,11 +50,20 @@ class PhotoTestCase(TestCase):
     def test_photo_user_relationship(self):
         self.test_photo = PhotoFactory.create(user=self.user)
         assert self.test_photo.user == self.user
+        self.assertTrue(
+            self.test_photo.title in
+            self.user.photos.first().title
+        )
 
     def test_photo__str__method(self):
         self.test_photo = PhotoFactory.create(user=self.user)
-        self.assertEqual('Photo owned by {}'.format(self.user.username),
-                         str(self.test_photo))
+        self.assertEqual(
+            "{} - Photo by {}".format(
+                self.test_photo.title,
+                self.user.username
+            ),
+            str(self.test_photo)
+        )
 
 
 class AlbumTestCase(TestCase):

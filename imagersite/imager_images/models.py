@@ -22,7 +22,7 @@ class Photo(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return "{} - {}".format(self.title, self.user.username)
+        return "{} - Photo by {}".format(self.title, self.user.username)
 
 
 @python_2_unicode_compatible

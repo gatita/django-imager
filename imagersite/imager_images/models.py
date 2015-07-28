@@ -22,7 +22,7 @@ class Photo(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return "Photo owned by {}".format(self.user.username)
+        return "{} - {}".format(self.title, self.user.username)
 
 
 @python_2_unicode_compatible
@@ -47,4 +47,4 @@ class Album(models.Model):
         null=True)
 
     def __str__(self):
-        return "{}'s {} album".format(self.user.username, self.title)
+        return "{} - Album by {}".format(self.title, self.user.username)

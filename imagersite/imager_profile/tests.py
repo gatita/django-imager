@@ -85,7 +85,7 @@ class ProfileTestCase(TestCase):
             each.save()
             each = User.objects.all()[i]
 
-        active_list = ImagerProfile.active()
+        active_list = ImagerProfile.active.all()
 
         for each in usrs:
             if each == self.user1:

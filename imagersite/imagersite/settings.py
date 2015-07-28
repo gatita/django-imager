@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -41,6 +42,7 @@ INSTALLED_APPS = (
     'imager_profile',
     'imager_images',
     'bootstrap3',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,3 +118,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Media file handling
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+# Registration Settings
+
+ACCOUNT_ACTIVATION_DAYS = 7

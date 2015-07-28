@@ -26,7 +26,7 @@ class ProfileTestCase(TestCase):
 
         self.assertEqual(ImagerProfile.objects.count(), 1)
 
-    def test_profile___str___is_formatted_properly(self):
+    def test_profile_str_is_formatted_properly(self):
         self.user0.save()
         profile = ImagerProfile.objects.get(user=self.user0)
 
@@ -69,7 +69,7 @@ class ProfileTestCase(TestCase):
             each.save()
             each = User.objects.all()[i]
 
-        active_list = ImagerProfile.active()
+        active_list = ImagerProfile.active.all()
 
         for each in usrs:
             self.assertTrue(each.profile in active_list)

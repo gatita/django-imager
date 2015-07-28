@@ -6,20 +6,24 @@ from models import ImagerProfile
 
 @receiver(post_save, sender=User)
 def auto_create_profile(sender, **kwargs):
-    if not kwargs['raw']:
-        try:
-            instance = kwargs['instance']
-            instance.profile
-        except ImagerProfile.DoesNotExist:
-            instance.profile = ImagerProfile()
-            instance.profile.save()
+    if kwargs.get('raw'):
+        return
+
+    try:
+        instance = kwargs['instance']
+        instance.profile
+    except ImagerProfile.DoesNotExist:
+        instance.profile = ImagerProfile()
+        instance.profile.save()
 
 
 @receiver(post_delete, sender=User)
 def auto_delete_profile(sender, **kwargs):
-    if not kwargs['raw']:
-        try:
-            instance = kwargs['instance']
-            instance.profile.delete()
-        except ImagerProfile.DoesNotExist:
-            pass
+    if kwargs.get('raw'):
+        return
+
+    try:
+        instance = kwargs['instance']
+        instance.profile.delete()
+    except ImagerProfile.DoesNotExist:
+        pass

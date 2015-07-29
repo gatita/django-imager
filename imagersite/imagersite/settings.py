@@ -123,3 +123,5 @@ MEDIA_URL = '/media/'
 # Registration Settings
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+SITE_ID = 1

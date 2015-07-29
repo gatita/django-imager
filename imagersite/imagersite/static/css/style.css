@@ -12,7 +12,7 @@ body {
 
 #navbar {
     background-color: #3b3b3b;
-    border-bottom: 10px solid #cc5b4a;
+    border-bottom: 10px solid #8bb9ad;
     max-width: 100%;
     height: 100px;
     margin-left: auto;
@@ -24,25 +24,23 @@ body {
 #brand:visited,
 #brand:hover {
     text-decoration: none;
-    font-size: 5rem;
+    font-size: 6rem;
     font-weight: 800;
     float: left;
-    position: relative;
-    top: 15px;
 }
 
 #brand_p1,
 #brand_p1:visited,
 #brand_p1:hover {
-    color: #cc5b4a;
-    text-shadow: 3px 3px 2px #b5c3b8;
+    color: #eeede8;
+    text-shadow: 3px 3px 2px #cc5b4a;
  }
 
  #brand_p2,
  #brand_p2:visited,
  #brand_p2:hover {
-    color: #b5c3b8;
-    text-shadow: 3px 3px 2px #cc5b4a;
+    color: #cc5b4a;
+    text-shadow: 3px 3px 2px #eeede8;
  }
 
  #nav_btn_grp {
@@ -62,10 +60,24 @@ body {
     font-weight: 700;
     position: relative;
     top: 60px;
-    margin: 0 50px;
+    margin: 0 3rem;
 
+}
+
+h1,
+p,
+label {
+    color: #eeede8;
 }
 
 #main_content {
     clear: both;
+}
+
+footer {
+    margin: 0, auto;
+    text-align: center;
+    height: 10px;
+    position: relative;
+    top: 75%;
 }

@@ -122,6 +122,10 @@ MEDIA_URL = '/media/'
 
 # Registration Settings
 
+
 ACCOUNT_ACTIVATION_DAYS = 7
 
 SITE_ID = 1
+
+LOGIN_URL = 'auth_login'
+LOGIN_REDIRECT_URL = '/profile/'

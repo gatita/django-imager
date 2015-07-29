@@ -21,10 +21,19 @@
                 <span id="brand_p1">Django</span>
                 <span id="brand_p2">Imager</span>
             </a>
+
             <div id="nav_btn_grp">
-                <a class="nav_btn" href="#">Home</a>
-                <a class="nav_btn" href="#">Login</a>
-                <a class="nav_btn" href="#">Sign Up</a>
+                <a class="nav_btn" href="{% url 'home' %}">Home</a>
+
+            {% if user.is_authenticated %}
+                <a class="nav_btn" href="#">Profile</a>
+                <a class="nav_btn" href="{% url 'auth_logout' %}">Logout</a>
+
+            {% else %}
+                <a class="nav_btn" href="{% url 'auth_login' %}">Login</a>
+                <a class="nav_btn" href="{% url 'registration_register' %}">Sign Up</a>
+
+            {% endif %}
             </div>
         </nav>
     </div>
@@ -35,7 +44,7 @@
     </div>
 
     <footer>
-
+        <p>&copy; 2015 Grace Hatamyar, Tanner Lake
     </footer>
 </body>
 </html>

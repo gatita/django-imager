@@ -1,13 +1,39 @@
 <!DOCTYPE html>
+
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
 <html>
 <head>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+{% block head %}
     <title>Django Imager</title>
+{% endblock %}
 </head>
 
 <body>
+    <div id="navbar">
+        <nav>
+            <a id="brand" href="#">
+                <span id="brand_p1">Django</span>
+                <span id="brand_p2">Imager</span>
+            </a>
+            <div id="nav_btn_grp">
+                <a class="nav_btn" href="#">Home</a>
+                <a class="nav_btn" href="#">Login</a>
+                <a class="nav_btn" href="#">Sign Up</a>
+            </div>
+        </nav>
+    </div>
 
 {% block main %}
 {% endblock %}
 
+    <footer>
+
+    </footer>
 </body>
 </html>

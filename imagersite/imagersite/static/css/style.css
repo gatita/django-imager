@@ -20,7 +20,10 @@ body {
     text-align: center;
 }
 
-#brand {
+#brand,
+#brand:visited,
+#brand:hover {
+    text-decoration: none;
     font-size: 5rem;
     font-weight: 800;
     float: left;
@@ -28,12 +31,16 @@ body {
     top: 15px;
 }
 
-#brand_p1 {
+#brand_p1,
+#brand_p1:visited,
+#brand_p1:hover {
     color: #cc5b4a;
     text-shadow: 3px 3px 2px #b5c3b8;
  }
 
- #brand_p2 {
+ #brand_p2,
+ #brand_p2:visited,
+ #brand_p2:hover {
     color: #b5c3b8;
     text-shadow: 3px 3px 2px #cc5b4a;
  }
@@ -42,7 +49,9 @@ body {
     float: right;
  }
 
-.nav_btn {
+.nav_btn,
+.nav_btn:visited,
+.nav_btn:hover {
     text-align: center;
     background-color: #3b3b3b;
     border-radius: 5px;
@@ -55,4 +64,8 @@ body {
     top: 60px;
     margin: 0 50px;
 
+}
+
+#main_content {
+    clear: both;
 }

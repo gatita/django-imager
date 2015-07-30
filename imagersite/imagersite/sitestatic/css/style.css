@@ -9,6 +9,8 @@ body {
     max-width: 75%;
     background-color: #3b3b3b;
     margin: auto;
+    overflow-x: hidden;
+    font-family: 'Raleway', sans-serif;
 }
 
 h1,
@@ -35,8 +37,8 @@ input {
 #brand:visited,
 #brand:hover {
     text-decoration: none;
-    font-size: 6rem;
-    font-weight: 800;
+    font-size: 5rem;
+    font-weight: 400;
     float: left;
 }
 
@@ -69,9 +71,9 @@ input {
     color: #8bb9ad;
     font-size: 2rem;
     font-weight: 700;
-    position: relative;
+/*    position: relative;*/
     top: 60px;
-    margin: 0 3rem;
+    margin: 3rem;
 
 }
 
@@ -130,12 +132,25 @@ label {
     margin: 15% 0 10%;
 }
 
+.signup-input {
+    margin: 10% 0 10%;
+}
+
 .reg-header {
     margin-top: 20%;
     color: rgba(250, 211, 29, .7);
 /*    color: #fad31d;*/
 /*    font-weight: lighter;*/
 }
+
+footer {
+    clear: both;
+    margin: 50px, auto, 0;
+    text-align: center;
+    height: 10px;
+}
+
+/* Login/Registration -------------------- */
 
 #reg-btn {
     width: 30%;
@@ -144,6 +159,10 @@ label {
 
 #glados {
     width: 90%;
+}
+
+#reg-complete {
+    margin-top: 25%;
 }
 
 /* Bootstrap Overrides -------------------- */
@@ -156,9 +175,20 @@ label {
     max-width: 100%;
 }
 
-footer {
-    clear: both;
-    margin: 50px, auto, 0;
-    text-align: center;
-    height: 10px;
+/* Media Queries -------------------- */
+
+@media (max-width:480px) {
+    #navbar {
+        border-bottom: none;
+    }
+
+    #persistent_img {
+        display: none;
+    }
+
+    #main_content {
+        top: 20px;
+    }
+
+
 }

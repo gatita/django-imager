@@ -1,4 +1,5 @@
 html {
+    box-sizing: border-box;
     background-color: #3b3b3b;
     height: 100%;
 }
@@ -8,6 +9,16 @@ body {
     max-width: 75%;
     background-color: #3b3b3b;
     margin: auto;
+}
+
+h1,
+p,
+label {
+    color: #eeede8;
+}
+
+input {
+    color: #3b3b3b;
 }
 
 #navbar {
@@ -24,8 +35,8 @@ body {
 #brand:visited,
 #brand:hover {
     text-decoration: none;
-    font-size: 4rem;
-    font-weight: lighter;
+    font-size: 6rem;
+    font-weight: 800;
     float: left;
 }
 
@@ -57,11 +68,10 @@ body {
     text-decoration: none;
     color: #8bb9ad;
     font-size: 2rem;
-/*    font-weight: lighter;*/
-/*    font-weight: 400;*/
-/*    position: relative;*/
+    font-weight: 700;
+    position: relative;
     top: 60px;
-    margin: 2rem 3rem;
+    margin: 0 3rem;
 
 }
 
@@ -75,20 +85,44 @@ label {
     color: #eeede8;
 }
 
+#logged_in_user {
+    display: inline-block;
+    float: left;
+}
+
+#logged_in_user p {
+    color: #cc5b4a;
+    font-style: italic;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+#persistent_img {
+    height: 100px;
+    width: 100px;
+    float: right;
+    margin-right: 20px;
+}
+
 #main_content {
     clear: both;
+    max-width: 80%;
 }
 
-footer {
-    margin: 0, auto;
+#main_content p {
+    font-size: 1.75rem;
+    margin: 30px 0;
+}
+
+.photo_container {
     text-align: center;
-    height: 10px;
-    position: relative;
-    top: 75%;
+    color: #cc5b4a;
+    font-style: italic;
 }
 
-
-/* Registration/Login -------------------- */
+.photo_label {
+    color: #cc5b4a;
+}
 
 .reg-input {
     margin: 15% 0 10%;
@@ -112,7 +146,17 @@ footer {
 
 /* Bootstrap Overrides -------------------- */
 
-/*.registration-form {
+.registration-form {
     width: 40%;
 }
-*/
+
+#homepage_photo {
+    max-width: 100%;
+}
+
+footer {
+    clear: both;
+    margin: 50px, auto, 0;
+    text-align: center;
+    height: 10px;
+}

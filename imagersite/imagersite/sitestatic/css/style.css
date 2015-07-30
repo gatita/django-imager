@@ -10,9 +10,19 @@ body {
     margin: auto;
 }
 
+h1,
+p,
+label {
+    color: #eeede8;
+}
+
+input {
+    color: #3b3b3b;
+}
+
 #navbar {
     background-color: #3b3b3b;
-/*    border-bottom: 10px solid #8bb9ad;*/
+    border-bottom: 10px solid #8bb9ad;
     max-width: 100%;
     height: 100px;
     margin-left: auto;
@@ -24,8 +34,8 @@ body {
 #brand:visited,
 #brand:hover {
     text-decoration: none;
-    font-size: 4rem;
-    font-weight: lighter;
+    font-size: 6rem;
+    font-weight: 800;
     float: left;
 }
 
@@ -58,16 +68,26 @@ body {
     color: #8bb9ad;
     font-size: 2rem;
     font-weight: 700;
-/*    position: relative;*/
+    position: relative;
     top: 60px;
-    margin: 2rem 3rem;
+    margin: 0 3rem;
 
 }
 
-h1,
-p,
-label {
-    color: #eeede8;
+#logged_in_user {
+    display: block;
+}
+
+#logged_in_user p {
+    color: #cc5b4a;
+    font-style: italic;
+    padding: 10px;
+    border-bottom: 1px solid #8bb9ad;
+    border-left: 1px solid #8bb9ad;
+    border-right: 1px solid #8bb9ad;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: inline-block;
 }
 
 #main_content {
@@ -80,13 +100,4 @@ footer {
     height: 10px;
     position: relative;
     top: 75%;
-}
-
-
-/* Registration/Login -------------------- */
-
-/* Bootstrap Overrides -------------------- */
-
-.registration-form {
-    width: 40%;
 }

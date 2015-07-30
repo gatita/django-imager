@@ -17,7 +17,7 @@
 <body>
     <div id="navbar">
         <div class="container-fluid">
-                <a id="brand" href="#">
+                <a id="brand" href="{% url 'home' %}">
                     <span id="brand_p1">Django</span>
                     <span id="brand_p2">Imager</span>
                 </a>
@@ -36,6 +36,10 @@
                 {% endif %}
                 </div>
         </div>
+    </div>
+
+    <div id="logged_in_user">
+        <p>currently logged in as {{ user }}</p>
     </div>
 
     <div id="main_content" class="container">

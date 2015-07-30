@@ -107,6 +107,8 @@ label {
 #main_content {
     clear: both;
     max-width: 80%;
+    position: relative;
+    top: -40px;
 }
 
 #main_content p {

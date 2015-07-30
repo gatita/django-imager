@@ -82,11 +82,6 @@ input {
     color: #cc5b4a;
     font-style: italic;
     padding: 10px;
-    border-bottom: 1px solid #8bb9ad;
-    border-left: 1px solid #8bb9ad;
-    border-right: 1px solid #8bb9ad;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
     display: inline-block;
 }
 

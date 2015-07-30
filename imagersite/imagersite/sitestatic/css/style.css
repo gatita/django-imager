@@ -12,7 +12,7 @@ body {
 
 #navbar {
     background-color: #3b3b3b;
-    border-bottom: 10px solid #8bb9ad;
+/*    border-bottom: 10px solid #8bb9ad;*/
     max-width: 100%;
     height: 100px;
     margin-left: auto;
@@ -24,8 +24,8 @@ body {
 #brand:visited,
 #brand:hover {
     text-decoration: none;
-    font-size: 6rem;
-    font-weight: 800;
+    font-size: 4rem;
+    font-weight: lighter;
     float: left;
 }
 
@@ -58,9 +58,9 @@ body {
     color: #8bb9ad;
     font-size: 2rem;
     font-weight: 700;
-    position: relative;
+/*    position: relative;*/
     top: 60px;
-    margin: 0 3rem;
+    margin: 2rem 3rem;
 
 }
 
@@ -88,5 +88,5 @@ footer {
 /* Bootstrap Overrides -------------------- */
 
 .registration-form {
-    width: 50%;
+    width: 40%;
 }

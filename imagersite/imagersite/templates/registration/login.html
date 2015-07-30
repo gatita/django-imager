@@ -5,16 +5,15 @@
 {% block title %}{% trans "Log in" %}{% endblock %}
 
 {% block main %}
-<form method="post" action="">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-<!--     {{ form.as_p }} -->
-    <input type="submit" value="{% trans 'Log in' %}" />
-    <input type="hidden" name="next" value="{{ next }}" />
-</form>
+    <form method="post" action="" class="registration-form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" value="{% trans 'Log in' %}" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
 
-<p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>
-<p>{% trans "Not a member?" %} <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>.</p>
+    <p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>
+    <p>{% trans "Not a member?" %} <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>.</p>
 {% endblock %}
 
 

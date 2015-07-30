@@ -1,8 +1,8 @@
 # PROJECT-SPECIFIC IGNORES
-media/*
+media/
 !media/.gitkeep
 
-staticfiles/*
+staticfiles/
 !staticfiles/.gitkeep
 
 

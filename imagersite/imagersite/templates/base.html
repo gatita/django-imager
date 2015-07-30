@@ -38,11 +38,15 @@
         </div>
     </div>
 
+    {% if user.is_authenticated %}
     <div id="logged_in_user">
         <p>currently logged in as {{ user }}</p>
     </div>
+    {% endif %}
 
-        <img id="persistent_img" src="{% static 'img/glados_hanging.png' %}">
+    {% block persistent_glados %}
+    <img id="persistent_img" src="{% static 'img/glados_hanging.png' %}">
+    {% endblock %}
 <!--
 http://vignette1.wikia.nocookie.net/video-game-championship-wrestling/images/0/0c/Glados_promo.png/revision/latest?cb=20150107004701
  -->

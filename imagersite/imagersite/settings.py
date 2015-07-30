@@ -134,4 +134,13 @@ ACCOUNT_ACTIVATION_DAYS = 7
 SITE_ID = 1
 
 LOGIN_URL = 'auth_login'
-LOGIN_REDIRECT_URL = '/profile/'
+LOGIN_REDIRECT_URL = '/'
+
+
+# Bootstrap
+
+BOOTSTRAP3 = {
+    'horizontal_field_class': 'col-md-6'
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

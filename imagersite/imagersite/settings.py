@@ -140,7 +140,7 @@ LOGIN_REDIRECT_URL = '/'
 # Bootstrap
 
 BOOTSTRAP3 = {
-    'horizontal_field_class': 'col-md-6'
+    'horizontal_field_class': 'col-md-6',
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

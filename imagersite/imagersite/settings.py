@@ -75,7 +75,7 @@ TEMPLATES = [
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'imagersite/sitestatic')
+    os.path.join(BASE_DIR, 'imagersite/sitestatic'),
 ]
 
 

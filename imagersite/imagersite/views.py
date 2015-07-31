@@ -10,6 +10,6 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(TemplateView, self).get_context_data(**kwargs)
         photo = Photo.objects.all().filter(
-            published='Public').order_by('?').first()
+            published='public').order_by('?').first()
         context['photo'] = photo
         return context

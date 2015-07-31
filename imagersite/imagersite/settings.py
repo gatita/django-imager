@@ -135,6 +135,7 @@ SITE_ID = 1
 
 LOGIN_URL = 'auth_login'
 LOGIN_REDIRECT_URL = '/'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Bootstrap
@@ -142,5 +143,3 @@ LOGIN_REDIRECT_URL = '/'
 BOOTSTRAP3 = {
     'horizontal_field_class': 'col-md-6',
 }
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

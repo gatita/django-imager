@@ -71,10 +71,7 @@ input {
     color: #8bb9ad;
     font-size: 2rem;
     font-weight: 700;
-/*    position: relative;*/
-    top: 60px;
     margin: 3rem;
-
 }
 
 .nav_btn:hover {
@@ -139,8 +136,6 @@ label {
 .reg-header {
     margin-top: 20%;
     color: rgba(250, 211, 29, .7);
-/*    color: #fad31d;*/
-/*    font-weight: lighter;*/
 }
 
 footer {
@@ -148,6 +143,12 @@ footer {
     margin: 50px, auto, 0;
     text-align: center;
     height: 10px;
+}
+
+/* Homepage -------------------- */
+
+#homepage_photo {
+    max-width: 100%;
 }
 
 /* Login/Registration -------------------- */
@@ -166,14 +167,6 @@ footer {
 }
 
 /* Bootstrap Overrides -------------------- */
-
-.registration-form {
-    width: 40%;
-}
-
-#homepage_photo {
-    max-width: 100%;
-}
 
 /* Media Queries -------------------- */
 

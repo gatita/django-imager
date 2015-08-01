@@ -23,7 +23,9 @@
 
     <div class="gallery-item">
         {% thumbnail photo.img "200x200" as im %}
-        <img class="thumbnail" src="{{ im.url }}"/>
+        <a class="fancybox" rel="group" href="{{ photo.img.url }}">
+            <img class="thumbnail" src="{{ im.url }}"/>
+        </a>
         {% endthumbnail %}
         <h6>{{ photo.title }}</h6>
     </div>

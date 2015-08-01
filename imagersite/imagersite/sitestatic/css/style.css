@@ -220,7 +220,8 @@ footer {
 }
 
 
-.viewscreen a {
+.viewscreen a,
+.viewscreen a:visited {
     background-color: inherit;
 }
 

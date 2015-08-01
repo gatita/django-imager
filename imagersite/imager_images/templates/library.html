@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load thumbnail %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{% trans "Library" %}{% endblock %}
+
+{% block main_div_config %}
+    <div id="main_content" class="container">
+{% endblock %}
+
+{% block persistent_glados %}
+<img id="persistent_img" src="{% static 'img/glados_hanging.png' %}">
+{% endblock %}
+
+{% block main %}
+<h3>Photos</h3>
+
+{% for photo in user.photos.all %}
+
+{% thumbnail photo.img "100x100" as im %}
+    <img src="{{ im.url }}"/>
+{% endthumbnail %}
+<h6>{{ photo.title }}</h6>
+{% endfor %}
+
+{% endblock %}
+
+
+

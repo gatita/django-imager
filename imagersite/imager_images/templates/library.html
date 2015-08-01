@@ -16,7 +16,6 @@
 {% endblock %}
 
 {% block main %}
-
 <div id="gallery">
 <h3>Albums</h3>
 {% for album in user.albums.all %}
@@ -38,7 +37,6 @@
     </div>
 {% endfor %}
 <h3>Photos</h3>
-
 {% for photo in user.photos.all %}
     <div class="gallery-item">
         {% thumbnail photo.img "200x200" as im %}
@@ -49,10 +47,5 @@
         <h6>{{ photo.title }}</h6>
     </div>
 {% endfor %}
-
 </div>
-
 {% endblock %}
-
-
-

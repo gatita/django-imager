@@ -8,7 +8,7 @@
 {% block title %}{% trans "Library" %}{% endblock %}
 
 {% block main_div_config %}
-    <div id="main_content" class="container">
+<div id="main_content_full_width">
 {% endblock %}
 
 {% block persistent_glados %}
@@ -17,14 +17,20 @@
 
 {% block main %}
 <h3>Photos</h3>
+<div id="gallery">
 
 {% for photo in user.photos.all %}
 
-{% thumbnail photo.img "100x100" as im %}
-    <img src="{{ im.url }}"/>
-{% endthumbnail %}
-<h6>{{ photo.title }}</h6>
+    <div class="gallery-item">
+        {% thumbnail photo.img "200x200" as im %}
+        <img class="thumbnail" src="{{ im.url }}"/>
+        {% endthumbnail %}
+        <h6>{{ photo.title }}</h6>
+    </div>
+
+
 {% endfor %}
+</div>
 
 {% endblock %}
 

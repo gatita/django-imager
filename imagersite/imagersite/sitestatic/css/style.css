@@ -166,7 +166,37 @@ footer {
     margin-top: 25%;
 }
 
-/* Bootstrap Overrides -------------------- */
+/* Library -------------------- */
+
+#main_content_full_width {
+    clear: both;
+    position: relative;
+    top: -20px;
+}
+
+#main_content_full_width h3 {
+    color: rgba(250, 211, 29, .7);
+}
+
+#main_content_full_width h6 {
+    color: white;
+}
+
+#gallery {
+    width: 100%;
+    height: 100%;
+    clear: both;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+}
+
+.gallery-item {
+    display: inline-block;
+    margin: 1%;
+}
+
+
 
 /* Media Queries -------------------- */
 
@@ -182,6 +212,12 @@ footer {
     #main_content {
         top: 20px;
     }
+}
 
+/* Float Clearfix -------------------- */
 
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
 }

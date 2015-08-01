@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class='profile_container'>
+    <h2>{{ user.profile }}</h2>
+
+    <div class="viewscreen" id="user_info">
+        <h3>User Info</h3>
+        <ul>
+            <li>Photos: {{ photo_count }}</li>
+            <li>Albums: {{ album_count }}</li>
+        </ul>
+        <a class='nav_btn' href='library'>Library</a>
+    </div>
+
+    <h3>Name</h3>
+    <p>{{ user.get_full_name }}</p>
+
+    <h3>Contact</h3>
+    <h4>Website</h4>
+    <p>{{ user.profile.website }}</p>
+    <h4>Address</h4>
+    <p>{{ user.profile.address }}</p>
+
+    <h3>Camera</h3>
+    <p>{{ user.profile.camera }}</p>
+
+    <h3>Photography Type</h3>
+    <p>{{ user.profile.photo_genre }}</p>
+
+</div>
+
+{% endblock %}

@@ -23,8 +23,8 @@ urlpatterns = [
     url(r'^$', views.HomePageView.as_view(), name='home'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^images/', include('imager_images.urls')),
-    url(r'^profile/', include('imager_profile.urls')),
+    url(r'^images/', include('imager_images.urls', namespace='images')),
+    url(r'^profile/', include('imager_profile.urls', namespace='profile')),
 ]
 
 if settings.DEBUG:

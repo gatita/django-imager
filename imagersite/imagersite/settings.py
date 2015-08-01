@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'imager_images',
     'bootstrap3',
     'registration',
+    'sorl.thumbnail',
 )
 
 MIDDLEWARE_CLASSES = (

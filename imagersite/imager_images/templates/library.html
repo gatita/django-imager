@@ -22,13 +22,13 @@
     <div class="gallery-item">
         {% if album.cover %}
             {% thumbnail album.cover.img "200x200" as im %}
-                <a href="#">
+                <a href="{% url 'album_detail' album.id %}">
                     <img class="thumbnail" src="{{ im.url }}"/>
                 </a>
             {% endthumbnail %}
         {% else %}
             {% thumbnail "http://img09.deviantart.net/cee8/i/2012/063/2/d/glados_test_render_by_toughraid3r37890-d4rrcv4.png" "200x200" as im %}
-                <a href="#">
+                <a href="{% url 'album_detail' album.id %}">
                     <img class="thumbnail" src="{{ im.url }}" />
                 </a>
             {% endthumbnail %}

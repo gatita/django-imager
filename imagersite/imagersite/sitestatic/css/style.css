@@ -196,6 +196,11 @@ footer {
     margin: 1%;
 }
 
+/* Album View -------------------- */
+
+#gallery h4 {
+    color: white;
+}
 
 
 /* Media Queries -------------------- */

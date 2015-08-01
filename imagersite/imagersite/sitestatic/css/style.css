@@ -79,6 +79,9 @@ input {
 }
 
 h1,
+h2,
+h3, 
+h4,
 p,
 label {
     color: #eeede8;
@@ -91,9 +94,15 @@ label {
 
 #logged_in_user p {
     color: #cc5b4a;
+    font-size: 1.6rem;
     font-style: italic;
     padding: 10px 20px;
     display: inline-block;
+}
+
+#logged_in_user a {
+    color: #cc5b4a;
+    text-decoration: underline;
 }
 
 #persistent_img {
@@ -103,14 +112,14 @@ label {
     margin-right: 20px;
 }
 
-#main_content {
+.main_content {
     clear: both;
     max-width: 80%;
     position: relative;
     top: -40px;
 }
 
-#main_content p {
+.main_content p {
     font-size: 1.75rem;
     margin: 30px 0;
 }
@@ -166,6 +175,56 @@ footer {
     margin-top: 25%;
 }
 
+/* Profile -------------------- */
+
+.profile_container {
+    margin-top: 40px;
+    border: 5px solid #8bb9ad;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 0 20px 10px;
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.4);
+}
+
+.profile_container h3,
+.profile_container h4 {
+    color: #cc5b4a;
+    font-weight: 700;
+}
+
+.profile_container h3 {
+    margin-top: 30px;
+}
+
+.profile_container p {
+    margin: 0px;
+}
+
+.viewscreen {
+    float: right;
+    margin-right: -10%;
+    border: 3px solid #8bb9ad;
+    border-right-width: 10px;
+    border-radius: 20px 5px 5px 20px;
+    display: inline-block;
+    background-color: #222;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1.5rem;
+    padding: 20px 30px;
+    box-shadow: -2px 4px 4px 2px rgba(0, 0, 0, 0.4);
+}
+
+.viewscreen h3,
+.viewscreen li {
+    color: #e7e87f;
+}
+
+
+.viewscreen a,
+.viewscreen a:visited {
+    background-color: inherit;
+}
+
 /* Library -------------------- */
 
 #main_content_full_width {
@@ -214,7 +273,7 @@ footer {
         display: none;
     }
 
-    #main_content {
+    .main_content {
         top: 20px;
     }
 }

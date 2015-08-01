@@ -16,8 +16,6 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from imagersite import views
-
-# these two imports are for the weird '+' line that I don't understand
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,10 +23,9 @@ urlpatterns = [
     url(r'^$', views.HomePageView.as_view(), name='home'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^images/', include('imager_images.urls')),
+    url(r'^images/', include('imager_images.urls', namespace='images')),
+    url(r'^profile/', include('imager_profile.urls', namespace='profile')),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# that's the weird '+' that I don't understand
-# but hey, now our /media/ images can be rendered in templates

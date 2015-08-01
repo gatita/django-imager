@@ -221,3 +221,15 @@ footer {
   display: table;
   clear: both;
 }
+
+/* Fancybox -------------------- */
+
+.fb-title {
+    color: white;
+    text-decoration: none;
+}
+
+.fb-title:hover {
+    color: rgba(250, 211, 29, .7);
+    text-decoration: none;
+}

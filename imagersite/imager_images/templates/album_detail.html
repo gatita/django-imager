@@ -18,6 +18,7 @@
 
 {% block main %}
 <div id="gallery">
+<a class="nav_btn" href="{% url 'images:library' %}">Back To Library</a>
 <h3>{{ album.title }}</h3>
 <h4>{{ album.description }}</h4>
 {% if album.photos.exists %}

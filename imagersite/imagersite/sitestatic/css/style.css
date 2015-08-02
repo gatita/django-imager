@@ -261,6 +261,10 @@ footer {
     color: white;
 }
 
+#gallery a {
+    margin: 0;
+}
+
 
 /* Media Queries -------------------- */
 

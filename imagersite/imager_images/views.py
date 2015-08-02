@@ -8,5 +8,3 @@ from models import Photo, Album
 class AlbumView(DetailView):
     model = Album
     template_name = 'album_detail.html'
-
-

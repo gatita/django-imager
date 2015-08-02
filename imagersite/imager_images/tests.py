@@ -1,6 +1,8 @@
-from django.test import TestCase
-from django.contrib.auth.models import User
+from django.test import TestCase, Client, RequestFactory
+from django.contrib.auth.models import User, AnonymousUser
+from django.core.urlresolvers import reverse
 from imager_images.models import Photo, Album
+from .views import AlbumView
 import factory
 from faker import Faker
 
@@ -44,25 +46,25 @@ class PhotoTestCase(TestCase):
 
     def test_create_photo(self):
         assert len(Photo.objects.all()) == 0
-        self.test_photo = PhotoFactory.create(user=self.user)
+        test_photo = PhotoFactory.create(user=self.user)
         assert len(Photo.objects.all()) == 1
 
     def test_photo_user_relationship(self):
-        self.test_photo = PhotoFactory.create(user=self.user)
-        assert self.test_photo.user == self.user
+        test_photo = PhotoFactory.create(user=self.user)
+        assert test_photo.user == self.user
         self.assertTrue(
-            self.test_photo.title in
+            test_photo.title in
             self.user.photos.first().title
         )
 
     def test_photo_str_method(self):
-        self.test_photo = PhotoFactory.create(user=self.user)
+        test_photo = PhotoFactory.create(user=self.user)
         self.assertEqual(
             "{} - Photo by {}".format(
-                self.test_photo.title,
+                test_photo.title,
                 self.user.username
             ),
-            str(self.test_photo)
+            str(test_photo)
         )
 
 
@@ -74,25 +76,82 @@ class AlbumTestCase(TestCase):
 
     def test_create_album(self):
         self.assertEqual(Album.objects.count(), 0)
-        self.test_album = AlbumFactory.create(user=self.user)
+        test_album = AlbumFactory.create(user=self.user)
         self.assertEqual(Album.objects.count(), 1)
 
     def test_album_user_relationship(self):
-        self.test_album = AlbumFactory.create(user=self.user)
-        self.assertEqual(self.test_album.user, self.user)
+        test_album = AlbumFactory.create(user=self.user)
+        self.assertEqual(test_album.user, self.user)
 
     def test_new_album_contains_no_pictures(self):
-        self.test_album = AlbumFactory.create(user=self.user)
-        self.assertEqual(self.test_album.photos.count(), 0)
+        test_album = AlbumFactory.create(user=self.user)
+        self.assertEqual(test_album.photos.count(), 0)
 
     def test_add_photos_to_album(self):
-        self.test_album = AlbumFactory.create(user=self.user)
-        self.assertEqual(self.test_album.photos.count(), 0)
-        self.test_album.photos.add(self.photo)
-        self.assertEqual(self.test_album.photos.count(), 1)
+        test_album = AlbumFactory.create(user=self.user)
+        self.assertEqual(test_album.photos.count(), 0)
+        test_album.photos.add(self.photo)
+        self.assertEqual(test_album.photos.count(), 1)
 
     def test_album_photo_relationship(self):
-        self.test_album = AlbumFactory.create(user=self.user)
-        self.test_album.photos.add(self.photo)
-        self.assertEqual(self.photo.albums.first(), self.test_album)
-        self.assertEqual(self.test_album.photos.first(), self.photo)
+        test_album = AlbumFactory.create(user=self.user)
+        test_album.photos.add(self.photo)
+        self.assertEqual(self.photo.albums.first(), test_album)
+        self.assertEqual(test_album.photos.first(), self.photo)
+
+
+class LibraryViewTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.client = Client()
+        cls.user = UserFactory.create(username='foo')
+        cls.user.set_password('secret')
+        cls.user.save()
+        cls.photo = PhotoFactory.create(user=cls.user)
+        cls.album = AlbumFactory.create(user=cls.user)
+        cls.album.photos.add(cls.photo)
+        cls.album.save()
+
+    def test_library_view_redirects_anonymous_user(self):
+        resp = self.client.get(reverse('images:library'), follow=True)
+        self.assertRedirects(resp, '/accounts/login/?next=/images/library/')
+
+    def test_library_view_auth_user(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.get(reverse('images:library'), follow=True)
+        self.assertTemplateUsed(resp, 'library.html')
+        self.assertContains(resp, 'gallery-item', count=2)
+
+
+class AlbumViewTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.client = Client()
+        cls.user = UserFactory.create(username='foo')
+        cls.user.set_password('secret')
+        cls.user.save()
+        cls.photo = PhotoFactory.create(user=cls.user)
+        cls.album = AlbumFactory.create(user=cls.user)
+        cls.album.photos.add(cls.photo)
+        cls.album.save()
+
+    def test_album_view_redirects_anonymous_user(self):
+        resp = self.client.get(reverse(
+            'images:album_detail',
+            kwargs={'pk': self.album.pk}),
+            follow=True)
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/album/{}/'.format(self.album.pk)
+        )
+
+    def test_album_view_auth_user(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.get(reverse(
+            'images:album_detail',
+            kwargs={'pk': self.album.pk}),
+            follow=True)
+        self.assertTemplateUsed(resp, 'album_detail.html')
+        self.assertContains(resp, 'gallery-item', count=1)

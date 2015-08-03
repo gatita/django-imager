@@ -134,6 +134,7 @@ class AlbumViewTests(TestCase):
         cls.album = AlbumFactory.create(user=cls.user)
         cls.album.photos.add(cls.photo)
         cls.album.save()
+        cls.public_album = AlbumFactory.create(user=cls.user, published='public')
 
     def test_album_view_redirects_anonymous_user(self):
         resp = self.client.get(reverse(
@@ -163,3 +164,16 @@ class AlbumViewTests(TestCase):
             'images:album_detail',
             kwargs={'pk': self.album.pk}),
             follow=True)
+        assert resp.status_code == 403
+
+    def test_public_album_non_owner_viewer(self):
+        curious_user = UserFactory.create(username='biz')
+        curious_user.set_password('baz')
+        curious_user.save()
+        self.client.login(username='biz', password='baz')
+        resp = self.client.get(reverse(
+            'images:album_detail',
+            kwargs={'pk': self.public_album.pk}),
+            follow=True)
+        self.assertTemplateUsed(resp, 'album_detail.html')
+        self.assertContains(resp, 'gallery')

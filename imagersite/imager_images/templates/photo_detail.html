@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load thumbnail %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{% trans "Library" %}{% endblock %}
+
+{% block main_div_config %}
+<div id="main_content_full_width">
+{% endblock %}
+
+
+{% block main %}
+<h3>{{ photo.title }}</h3>
+<h4>{{ photo.decsription }}</h4>
+
+<img src="{{ photo.img.url }}" />
+
+<h6>Owned by: {{ photo.user }}</h6>
+<h6>Created: {{ photo.date_created }}</h6>
+<h6>Last Modified: {{ photo.date_modified }}</h6>
+<h6>Status: {{ photo.published }}</h6>
+
+{% if album.date_published %}
+    <h6>Published: {{ photo.date_published }}</h6>
+
+{% else %}
+    <h6>This photo has not yet been published.</h6>
+
+{% endif %}
+{% endblock %}

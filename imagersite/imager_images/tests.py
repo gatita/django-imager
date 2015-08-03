@@ -104,7 +104,6 @@ class LibraryViewTests(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.client = Client()
         cls.user = UserFactory.create(username='foo')
         cls.user.set_password('secret')
         cls.user.save()
@@ -128,7 +127,6 @@ class AlbumViewTests(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.client = Client()
         cls.user = UserFactory.create(username='foo')
         cls.user.set_password('secret')
         cls.user.save()
@@ -155,3 +153,13 @@ class AlbumViewTests(TestCase):
             follow=True)
         self.assertTemplateUsed(resp, 'album_detail.html')
         self.assertContains(resp, 'gallery-item', count=1)
+
+    def test_private_album_view_unauthorized_user(self):
+        devious_user = UserFactory.create(username='bar')
+        devious_user.set_password('reallysecret')
+        devious_user.save()
+        self.client.login(username='bar', password='reallysecret')
+        resp = self.client.get(reverse(
+            'images:album_detail',
+            kwargs={'pk': self.album.pk}),
+            follow=True)

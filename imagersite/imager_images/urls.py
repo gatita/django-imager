@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
-from views import AlbumView
+from .views import AlbumView, PhotoView
 
 urlpatterns = [
     url(
@@ -11,6 +11,18 @@ urlpatterns = [
         ),
         name='library'
     ),
-    url(r'^album/(?P<pk>\d+)/$', login_required(
-        AlbumView.as_view()), name='album_detail'),
+    url(
+        r'^album/(?P<pk>\d+)/$',
+        login_required(
+            AlbumView.as_view()
+        ),
+        name='album_detail'
+    ),
+    url(
+        r'^photo/(?P<pk>\d+)/$',
+        login_required(
+            PhotoView.as_view()
+        ),
+        name='photo_detail'
+    ),
 ]

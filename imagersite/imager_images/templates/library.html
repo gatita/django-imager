@@ -36,7 +36,7 @@
 {% for photo in user.photos.all %}
     <div class="gallery-item">
         {% thumbnail photo.img "200x200" as im %}
-        <a class="fancybox" rel="group" href="{{ photo.img.url }}" title='<a class="fb-title" href="#">{{ photo.title }}</a>'>
+        <a class="fancybox" rel="group" href="{{ photo.img.url }}" title='<a class="fb-title" href="{% url "images:photo_detail" photo.id %}">{{ photo.title }}</a>'>
             <img class="thumbnail" src="{{ im.url }}"/>
         </a>
         {% endthumbnail %}

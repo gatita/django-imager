@@ -32,7 +32,7 @@
             {% endthumbnail %}
         {% endif %}
         <h6>{{ album.title }}</h6>
-        <a href="{% url 'images:album_edit' album.id %}">Edit This Album</a>
+        <a class="edit_link album_edit_link" href="{% url 'images:album_edit' album.id %}">Edit This Album</a>
     </div>
 {% endfor %}
 <h3>Photos</h3>
@@ -44,7 +44,7 @@
         </a>
         {% endthumbnail %}
         <h6><a href="{% url 'images:photo_detail' photo.id %}">{{ photo.title }}</a></h6>
-        <a href="{% url 'images:photo_edit' photo.id %}">Edit This Photo</a>
+        <a class="edit_link photo_edit_link" href="{% url 'images:photo_edit' photo.id %}">Edit This Photo</a>
     </div>
 {% endfor %}
 </div>

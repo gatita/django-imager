@@ -265,6 +265,12 @@ footer {
     margin: 0;
 }
 
+/* Photo View -------------------- */
+
+.photo_detail {
+    max-width: 100%
+}
+
 
 /* Media Queries -------------------- */
 

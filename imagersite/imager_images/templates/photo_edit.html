@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
 
 {% load bootstrap3 %}
-{% load thumbnail %}
 {% load staticfiles %}
 {% load i18n %}
 
-{% block title %}{% trans "Edit Photo" %}{% endblock %}
+{% block title %}{% trans "EditPhoto" %}{% endblock %}
 
 {% block main_div_config %}
 <div id="main_content_full_width">
-
 {% endblock %}
 
 {% block main %}
-<form action='' method='POST'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit' value='Update Photo' />
-</form>
-
+<div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-3">
+    </div>
+    <div class="col-md-7 col-sm-5">
+        <h2 class="create-header">Edit Photo</h2>
+        <form id="photo-edit" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form form_group_class='create' %}
+            <input id="reg-btn" class="btn btn-default" type="submit" value="{% trans 'Edit Photo' %}" />
+        </form>
+    </div>
+</div>
 {% endblock %}

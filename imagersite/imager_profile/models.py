@@ -27,8 +27,7 @@ class ImagerProfile(models.Model):
     )
 
     camera = models.CharField(
-        max_length=255,
-        help_text='What is the make and model of your camera?'
+        max_length=255
     )
     address = models.TextField()
     website = models.URLField()

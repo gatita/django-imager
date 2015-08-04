@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
-from .views import AlbumView, PhotoView, PhotoCreate
+from .views import AlbumView, PhotoView, PhotoCreate, PhotoEdit, AlbumEdit
 
 urlpatterns = [
     url(
@@ -32,4 +32,18 @@ urlpatterns = [
         ),
         name='photo_add'
     ),
+    url(
+        r'^photos/(?P<pk>\d+)/edit$',
+        login_required(
+            PhotoEdit.as_view()
+        ),
+        name='photo_edit'
+    ),
+    url(
+        r'^albums/(?P<pk>\d+)/edit$',
+        login_required(
+            AlbumEdit.as_view(),
+        ),
+        name='album_edit'
+    )
 ]

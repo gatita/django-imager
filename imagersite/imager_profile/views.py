@@ -13,3 +13,11 @@ class ProfileView(TemplateView):
         context['photo_count'] = photo_count
         context['album_count'] = album_count
         return context
+
+
+def profile_edit_view(request):
+    if request.method == 'POST':
+        pass
+
+    else:
+        pass

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load thumbnail %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit Photo" %}{% endblock %}
+
+{% block main_div_config %}
+<div id="main_content_full_width">
+
+{% endblock %}
+
+{% block main %}
+<form action='' method='POST'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit' value='Update Photo' />
+</form>
+
+{% endblock %}

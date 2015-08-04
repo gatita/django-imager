@@ -200,6 +200,10 @@ footer {
     margin: 0px;
 }
 
+.profile_fix {
+    margin-bottom: 5%;
+}
+
 .viewscreen {
     float: right;
     margin-right: -10%;
@@ -280,6 +284,34 @@ footer {
     color: rgba(250, 211, 29, .7);
 }
 
+/* Edit Links -------------------- */
+
+.edit_link,
+.edit_link:hover,
+.edit_link:visited {
+    background-color: #222;
+    color: #8bb9ad;
+    text-decoration: none;
+    border: solid 2px #8bb9ad;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+.edit_link:hover {
+    color: #c2c2c2;
+    border-color: #c2c2c2;
+}
+
+.profile_edit_link {
+    margin-left: 20px;
+    font-size: 2rem;
+}
+
+.album_edit_link,
+.photo_edit_link {
+    font-size: 1.2rem;
+}
 
 /* Media Queries -------------------- */
 

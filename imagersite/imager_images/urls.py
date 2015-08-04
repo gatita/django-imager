@@ -31,5 +31,5 @@ urlpatterns = [
             PhotoCreate.as_view()
         ),
         name='photo_add'
-        ),
+    ),
 ]

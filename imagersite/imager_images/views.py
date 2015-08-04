@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 from django.core.exceptions import PermissionDenied
@@ -31,7 +31,10 @@ class PhotoView(DetailView):
 
 class PhotoCreate(CreateView):
     model = Photo
+    template_name = 'photo_form.html'
     fields = ['img', 'title', 'description', 'published']
-    success_url = reverse('images:library')
+    success_url = reverse_lazy('images:library')
 
-    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(PhotoCreate, self).form_valid(form)

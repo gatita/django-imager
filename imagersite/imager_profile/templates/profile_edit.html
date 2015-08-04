@@ -1,20 +1,27 @@
 {% extends 'base.html' %}
 
 {% load bootstrap3 %}
-{% load thumbnail %}
 {% load staticfiles %}
 {% load i18n %}
 
 {% block title %}{% trans "Edit Profile" %}{% endblock %}
 
+{% block main_div_config %}
+<div id="main_content_full_width">
+{% endblock %}
+
 {% block main %}
-<form action='' method='POST'>
-    {% csrf_token %}
-    {{ user_form }}
-    {{ profile_form }}
-
-    <input type='submit' value='Save Changes' />
-
-</form>
-
+<div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-3">
+    </div>
+    <div class="col-md-7 col-sm-5">
+        <h2 class="create-header">Edit Profile</h2>
+        <form id="profile-edit" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form }}
+            {{ profile_form }}
+            <input id="reg-btn" class="btn btn-default" type="submit" value="{% trans 'Save Changes' %}" />
+        </form>
+    </div>
+</div>
 {% endblock %}

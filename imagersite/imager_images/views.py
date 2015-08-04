@@ -40,6 +40,17 @@ class PhotoCreate(CreateView):
         return super(PhotoCreate, self).form_valid(form)
 
 
+class AlbumCreate(CreateView):
+    model = Album
+    template_name = 'album_form.html'
+    fields = ['title', 'description']
+    success_url = reverse_lazy('images:library')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(AlbumCreate, self).form_valid(form)
+
+
 class PhotoEdit(UpdateView):
     model = Photo
     fields = ['title', 'description', 'published']

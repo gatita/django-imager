@@ -22,7 +22,6 @@ class PhotoView(DetailView):
 
     def get_object(self, **kwargs):
         obj = super(PhotoView, self).get_object(**kwargs)
-        if obj.user != self.request.user:
-            raise PermissionDenied
-        else:
-            return obj
+        if obj.published != 'public' and obj.user != self.request.user:
+                raise PermissionDenied
+        return obj

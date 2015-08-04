@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.core.urlresolvers import reverse
 from django.views.generic import DetailView
+from django.views.generic.edit import CreateView
 from django.core.exceptions import PermissionDenied
 from models import Photo, Album
 
@@ -25,3 +27,11 @@ class PhotoView(DetailView):
         if obj.published != 'public' and obj.user != self.request.user:
                 raise PermissionDenied
         return obj
+
+
+class PhotoCreate(CreateView):
+    model = Photo
+    fields = ['img', 'title', 'description', 'published']
+    success_url = reverse('images:library')
+
+    

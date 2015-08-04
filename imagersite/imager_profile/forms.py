@@ -6,8 +6,9 @@ from .models import ImagerProfile
 
 
 class UserEditForm(ModelForm):
-    model = User
-    fields = ['username', 'first_name', 'last_name', 'email']
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
 
 
 class ProfileEditForm(ModelForm):

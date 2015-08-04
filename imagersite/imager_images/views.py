@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.core.exceptions import PermissionDenied
 from models import Photo, Album
 
@@ -38,3 +38,9 @@ class PhotoCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(PhotoCreate, self).form_valid(form)
+
+
+class PhotoEdit(UpdateView):
+    model = Photo
+    fields = ['title', 'description', 'published']
+    template_name = 'photo_edit.html'

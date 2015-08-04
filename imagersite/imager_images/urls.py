@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
-from .views import AlbumView, PhotoView
+from .views import AlbumView, PhotoView, PhotoCreate
 
 urlpatterns = [
     url(
@@ -25,4 +25,11 @@ urlpatterns = [
         ),
         name='photo_detail'
     ),
+    url(
+        r'^photos/add/',
+        login_required(
+            PhotoCreate.as_view()
+        ),
+        name='photo_add'
+        ),
 ]

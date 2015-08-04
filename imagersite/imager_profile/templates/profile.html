@@ -3,7 +3,7 @@
 {% block main %}
 
 <div class='profile_container'>
-    <h2>{{ user.profile }} <a href="profile:profile_edit">Edit Profile</a></h2>
+    <h2>{{ user.profile }} <a href="{% url 'profile:profile_edit' %}">Edit Profile</a></h2>
 
     <div class="viewscreen" id="user_info">
         <h3>User Info</h3>

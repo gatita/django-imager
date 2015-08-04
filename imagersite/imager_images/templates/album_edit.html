@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% load bootstrap3 %}
-{% load thumbnail %}
 {% load staticfiles %}
 {% load i18n %}
 
@@ -13,10 +12,16 @@
 {% endblock %}
 
 {% block main %}
-<form action='' method='POST'>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit' value='Update Album' />
-</form>
-
+<div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-3">
+    </div>
+    <div class="col-md-7 col-sm-5">
+        <h2 class="create-header">Edit Album</h2>
+        <form id="album-edit" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form form_group_class='update' %}
+            <input id="reg-btn" class="btn btn-default" type="submit" value="{% trans 'Save Changes' %}" />
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -41,6 +41,7 @@
         </a>
         {% endthumbnail %}
         <h6><a href="{% url 'images:photo_detail' photo.id %}">{{ photo.title }}</a></h6>
+        <a href="{% url 'images:photo_edit' photo.id %}">Edit This Photo</a>
     </div>
 {% endfor %}
 </div>

@@ -45,3 +45,10 @@ class PhotoEdit(UpdateView):
     fields = ['title', 'description', 'published']
     template_name = 'photo_edit.html'
     success_url = reverse_lazy('images:library')
+
+
+class AlbumEdit(UpdateView):
+    model = Album
+    fields = ['title', 'description', 'cover', 'photos', 'published']
+    template_name = 'album_edit.html'
+    success_url = reverse_lazy('images:library')

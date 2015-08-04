@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load thumbnail %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{% trans "Library" %}{% endblock %}
+
+{% block main_div_config %}
+<div id="main_content_full_width">
+{% endblock %}
+
+
+{% block main %}
+<div id="gallery">
+<a class="nav_btn" href="{% url 'images:library' %}">Back To Library</a>
+<h3>{{ album.title }}</h3>
+<h4>{{ album.description }}</h4>
+{% if album.photos.exists %}
+    {% for photo in album.photos.all %}
+        <div class="gallery-item">
+            {% thumbnail photo.img "200x200" as im %}
+            <a class="fancybox" rel="group" href="{{ photo.img.url }}" title='<a class="fb-title" href="{% url "images:photo_detail" photo.id %}">{{ photo.title }}</a>'>
+                <img class="thumbnail" src="{{ im.url }}"/>
+            </a>
+            {% endthumbnail %}
+        <h6><a href="{% url 'images:photo_detail' photo.id %}">{{ photo.title }}</a></h6>
+        </div>
+    {% endfor %}
+{% else %}
+    <h4>This album is empty.</h4>
+{% endif %}
+<h6>{{ album.title }} is a {{ album.published }} album containing {{ album.photos.count }} photos.</h6>
+<h6>Created: {{ album.date_created }}</h6>
+<h6>Last Modified: {{ album.date_modified }}</h6>
+{% if not album.date_published %}
+    <h6>This album has not yet been published.</h6>
+{% else %}
+    <h6>Published: {{ album.date_published }}</h6>
+{% endif %}
+{% endblock %}

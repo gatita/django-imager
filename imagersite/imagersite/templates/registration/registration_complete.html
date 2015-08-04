@@ -1,0 +1,33 @@
+{% extends "registration/registration_base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{% trans "Activation email sent" %}{% endblock %}
+
+{% block persistent_glados %} {% endblock %}
+
+{% block main_div_config %}
+<div id="reg_content" class="container">
+{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-md-4 col-sm-4 col-xs-3">
+        <img id="glados" src="{% static 'img/glados.png' %}" alt="GLaDOS"/>
+    </div>
+    <div class="col-md-8 col-sm-8">
+        <p id="reg-complete">{% trans "Please check your email to complete the registration process." %}</p>
+    </div>
+</div>
+{% endblock %}
+
+
+{% comment %}
+**registration/registration_complete.html**
+
+Used after successful completion of the registration form. This
+template has no context variables of its own, and should simply inform
+the user that an email containing account-activation information has
+been sent.
+{% endcomment %}

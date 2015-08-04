@@ -1,0 +1,309 @@
+html {
+    box-sizing: border-box;
+    background-color: #3b3b3b;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    max-width: 75%;
+    background-color: #3b3b3b;
+    margin: auto;
+    overflow-x: hidden;
+    font-family: 'Raleway', sans-serif;
+}
+
+h1,
+p,
+label {
+    color: #eeede8;
+}
+
+input {
+    color: #3b3b3b;
+}
+
+#navbar {
+    background-color: #3b3b3b;
+    border-bottom: 8px solid #8bb9ad;
+    max-width: 100%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#brand,
+#brand:visited,
+#brand:hover {
+    text-decoration: none;
+    font-size: 5rem;
+    font-weight: 400;
+    float: left;
+}
+
+#brand_p1,
+#brand_p1:visited,
+#brand_p1:hover {
+    color: #eeede8;
+    text-shadow: 3px 3px 2px #cc5b4a;
+ }
+
+ #brand_p2,
+ #brand_p2:visited,
+ #brand_p2:hover {
+    color: #cc5b4a;
+    text-shadow: 3px 3px 2px #eeede8;
+ }
+
+ #nav_btn_grp {
+    float: right;
+ }
+
+.nav_btn,
+.nav_btn:visited,
+.nav_btn:hover {
+    text-align: center;
+    background-color: #3b3b3b;
+    border-radius: 5px;
+    display: inline-block;
+    text-decoration: none;
+    color: #8bb9ad;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 3rem;
+}
+
+.nav_btn:hover {
+    color: #C2C2C2;
+}
+
+h1,
+h2,
+h3, 
+h4,
+p,
+label {
+    color: #eeede8;
+}
+
+#logged_in_user {
+    display: inline-block;
+    float: left;
+}
+
+#logged_in_user p {
+    color: #cc5b4a;
+    font-size: 1.6rem;
+    font-style: italic;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+#logged_in_user a {
+    color: #cc5b4a;
+    text-decoration: underline;
+}
+
+#persistent_img {
+    height: 100px;
+    width: 100px;
+    float: right;
+    margin-right: 20px;
+}
+
+.main_content {
+    clear: both;
+    max-width: 80%;
+    position: relative;
+    top: -40px;
+}
+
+.main_content p {
+    font-size: 1.75rem;
+    margin: 30px 0;
+}
+
+.photo_container {
+    text-align: center;
+    color: #cc5b4a;
+    font-style: italic;
+}
+
+.photo_label {
+    color: #cc5b4a;
+}
+
+.reg-input {
+    margin: 15% 0 10%;
+}
+
+.signup-input {
+    margin: 10% 0 10%;
+}
+
+.reg-header {
+    margin-top: 20%;
+    color: rgba(250, 211, 29, .7);
+}
+
+footer {
+    clear: both;
+    margin: 50px, auto, 0;
+    text-align: center;
+    height: 10px;
+}
+
+/* Homepage -------------------- */
+
+#homepage_photo {
+    max-width: 100%;
+}
+
+/* Login/Registration -------------------- */
+
+#reg-btn {
+    width: 30%;
+    margin-bottom: 12%;
+}
+
+#glados {
+    width: 90%;
+}
+
+#reg-complete {
+    margin-top: 25%;
+}
+
+/* Profile -------------------- */
+
+.profile_container {
+    margin-top: 40px;
+    border: 5px solid #8bb9ad;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 0 20px 10px;
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.4);
+}
+
+.profile_container h3,
+.profile_container h4 {
+    color: #cc5b4a;
+    font-weight: 700;
+}
+
+.profile_container h3 {
+    margin-top: 30px;
+}
+
+.profile_container p {
+    margin: 0px;
+}
+
+.viewscreen {
+    float: right;
+    margin-right: -10%;
+    border: 3px solid #8bb9ad;
+    border-right-width: 10px;
+    border-radius: 20px 5px 5px 20px;
+    display: inline-block;
+    background-color: #222;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1.5rem;
+    padding: 20px 30px;
+    box-shadow: -2px 4px 4px 2px rgba(0, 0, 0, 0.4);
+}
+
+.viewscreen h3,
+.viewscreen li {
+    color: #e7e87f;
+}
+
+
+.viewscreen a,
+.viewscreen a:visited {
+    background-color: inherit;
+}
+
+/* Library -------------------- */
+
+#main_content_full_width {
+    clear: both;
+    position: relative;
+    top: -20px;
+}
+
+#main_content_full_width h3 {
+    color: rgba(250, 211, 29, .7);
+}
+
+#main_content_full_width h6 {
+    color: white;
+}
+
+#gallery {
+    width: 100%;
+    height: 100%;
+    clear: both;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+}
+
+.gallery-item {
+    display: inline-block;
+    margin: 1%;
+}
+
+/* Album View -------------------- */
+
+#gallery h4 {
+    color: white;
+}
+
+#gallery a {
+    margin: 0;
+}
+
+/* Photo View -------------------- */
+
+.photo_detail {
+    max-width: 100%
+}
+
+
+/* Media Queries -------------------- */
+
+@media (max-width:480px) {
+    #navbar {
+        border-bottom: none;
+    }
+
+    #persistent_img {
+        display: none;
+    }
+
+    .main_content {
+        top: 20px;
+    }
+}
+
+/* Float Clearfix -------------------- */
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Fancybox -------------------- */
+
+.fb-title {
+    color: white;
+    text-decoration: none;
+}
+
+.fb-title:hover {
+    color: rgba(250, 211, 29, .7);
+    text-decoration: none;
+}

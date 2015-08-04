@@ -1,6 +1,9 @@
 # PROJECT-SPECIFIC IGNORES
-media/*
+media/
 !media/.gitkeep
+
+staticfiles/
+!staticfiles/.gitkeep
 
 
 # Byte-compiled / optimized / DLL files

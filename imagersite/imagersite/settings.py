@@ -33,12 +33,16 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'imager_profile',
     'imager_images',
+    'bootstrap3',
+    'registration',
+    'sorl.thumbnail',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,7 +61,7 @@ ROOT_URLCONF = 'imagersite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'imagersite', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +73,12 @@ TEMPLATES = [
         },
     },
 ]
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'imagersite/sitestatic'),
+]
+
 
 WSGI_APPLICATION = 'imagersite.wsgi.application'
 
@@ -105,12 +115,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 # whenever a request comes in that starts with /static/
 # django will look inside this folder, and any path segments
-# that come after that will be relevant to that roo
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# that come after that will be relevant to that route
 
 # Media file handling
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+# Registration Settings
+
+
+ACCOUNT_ACTIVATION_DAYS = 7
+
+SITE_ID = 1
+
+LOGIN_URL = 'auth_login'
+LOGIN_REDIRECT_URL = 'profile:profile'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# Bootstrap
+
+BOOTSTRAP3 = {
+    'horizontal_field_class': 'col-md-6',
+}

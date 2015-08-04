@@ -4,6 +4,12 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.contrib.auth.models import User
 
+CHOICES = (
+    ('public', 'public'),
+    ('shared', 'shared'),
+    ('private', 'private'),
+)
+
 
 @python_2_unicode_compatible
 class Photo(models.Model):
@@ -12,14 +18,17 @@ class Photo(models.Model):
         related_name='photos',
         null=False
     )
-    img = models.ImageField(blank=True)
+    img = models.ImageField(upload_to="photo_files/%Y-%m-%d")
     title = models.CharField(max_length=255)
     description = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(null=True, blank=True)
+    date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(null=True, blank=True)
-    published = models.CharField(max_length=15)
-    objects = models.Manager()
+    published = models.CharField(
+        max_length=255,
+        choices=CHOICES,
+        default='private'
+    )
 
     def __str__(self):
         return "{} - Photo by {}".format(self.title, self.user.username)
@@ -39,12 +48,19 @@ class Album(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(null=True, blank=True)
+    date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(null=True, blank=True)
+
     cover = models.ForeignKey(
         Photo,
         related_name='album_cover',
         null=True)
+
+    published = models.CharField(
+        max_length=255,
+        choices=CHOICES,
+        default='private'
+    )
 
     def __str__(self):
         return "{} - Album by {}".format(self.title, self.user.username)

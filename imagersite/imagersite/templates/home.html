@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+{% block main %}
+
+    <h1>Welcome!</h1>
+
+    <p>
+    Hello, and welcome to the Django Imager Computer-Aided
+    Photography Center. We hope your arrival has been met
+    with applause and confetti. If this is not the case, we
+    apologize that our Visitor Arrival Amelioration System
+    is offline.
+    </p>
+
+    <p>
+    Please, use the login link to enter your user
+    credentials. Once verified, you may proceed to the
+    Relaxation Vault* to enjoy complimentary champagne and
+    creme fraiche.*
+    </p>
+
+    {% if not user.is_authenticated %}
+
+    <p>
+    I'm sorry. Do you not have user credentials? If this is
+    the case, we cannot allow you to enter the Relaxation
+    Vault. Should you wish to partake in the many - and
+    we do mean <em>many</em> - pleasantries within the Vault,
+    you will need to create a Django Imager user account.
+    Just follow the sign-up link.
+    </p>
+
+    <p>
+    What's this? I'm getting a report that the Relaxation
+    Vault may contain a surplus of attractive males and/or
+    females.* I'm sure they must be bored. You know, you
+    really ought to sign up.
+    </p>
+
+    {% endif %}
+
+    <p>
+    Oh, look what I've found. It's an image from one of our
+    esteemed users.
+    </p>
+
+    <div class="photo_container">
+
+        {% if photo %}
+        <img id="homepage_photo" src="{{ photo.img.url }}" />
+        <p class="photo_label">
+        {{ photo }}
+        </p>
+
+        {% else %}
+        <img id="homepage_photo" src="{% static 'img/glados_default.png' %}" />
+        <!--
+        http://img09.deviantart.net/cee8/i/2012/063/2/d/glados_test_render_by_toughraid3r37890-d4rrcv4.png
+         -->
+        <p class="photo_label">
+        I think we can put our differences behind us. For science. You monster.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+    <p>
+    The owner of this image is probably being showered with
+    praise and finances. But would you like to know a little
+    secret? I think you could do even better.
+
+    {% if not user.is_authenticated %}
+    Just sign up.
+
+    {% endif %}
+    </p>
+
+    <p><em>
+    * Please note: the Django Imager Computer-Aided
+    Photography Center is not responsible for the accuracy
+    of these statements. We provide no guarantees that the
+    menu of the Relaxation Vault is identical to that which
+    has been stated, that the number or attractiveness of
+    persons within the Vault is correct, or that such a
+    Relaxation Vault even exists.
+    </em></p>
+
+{% endblock %}

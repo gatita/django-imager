@@ -271,6 +271,15 @@ footer {
     max-width: 100%
 }
 
+.create {
+    margin: 5% 0;
+}
+
+.create-header {
+    margin-top: 7%;
+    color: rgba(250, 211, 29, .7);
+}
+
 
 /* Media Queries -------------------- */
 

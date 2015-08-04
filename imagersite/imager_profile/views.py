@@ -42,7 +42,11 @@ def profile_edit_view(request):
                 'profile_form': profile_form.as_p
             }
 
-            return render(request, 'imager_profile/profile_edit.html', context)
+            return render(
+                request,
+                'profile_edit.html',
+                context
+            )
 
     else:
         user_form = UserEditForm(instance=request.user)
@@ -52,4 +56,8 @@ def profile_edit_view(request):
             'profile_form': profile_form.as_p
         }
 
-        return render(request, 'imager_profile/profile_edit.html', context)
+        return render(
+            request,
+            'profile_edit.html',
+            context
+        )

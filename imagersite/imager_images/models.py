@@ -20,7 +20,7 @@ class Photo(models.Model):
     )
     img = models.ImageField(upload_to="photo_files/%Y-%m-%d")
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(null=True, blank=True)

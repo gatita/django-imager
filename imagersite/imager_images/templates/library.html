@@ -30,6 +30,7 @@
             {% endthumbnail %}
         {% endif %}
         <h6>{{ album.title }}</h6>
+        <a href="{% url 'images:album_edit' album.id %}">Edit This Album</a>
     </div>
 {% endfor %}
 <h3>Photos</h3>

@@ -44,3 +44,4 @@ class PhotoEdit(UpdateView):
     model = Photo
     fields = ['title', 'description', 'published']
     template_name = 'photo_edit.html'
+    success_url = reverse_lazy('images:library')

@@ -13,6 +13,8 @@
 
 {% block main %}
 <div id="gallery">
+<a class="btn btn-default" href='#' role="button">New Album</a>
+<a class="btn btn-default" href="{% url 'images:photo_add' %}" role="button">New Photo</a>
 <h3>Albums</h3>
 {% for album in user.albums.all %}
     <div class="gallery-item">

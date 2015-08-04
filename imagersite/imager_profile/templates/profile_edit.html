@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% load thumbnail %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit Profile" %}{% endblock %}
+
+{% block main %}
+<form action='' method='POST'>
+    {% csrf_token %}
+    {{ user_form }}
+    {{ profile_form }}
+
+    <input type='submit' value='Save Changes' />
+
+</form>
+
+{% endblock %}

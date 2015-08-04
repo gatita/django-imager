@@ -43,7 +43,7 @@ class PhotoCreate(CreateView):
 class AlbumCreate(CreateView):
     model = Album
     template_name = 'album_form.html'
-    fields = ['title', 'description']
+    fields = ['title', 'description', 'photos', 'cover']
     success_url = reverse_lazy('images:library')
 
     def form_valid(self, form):

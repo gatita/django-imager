@@ -1,8 +1,7 @@
-from django.test import TestCase, Client, RequestFactory
-from django.contrib.auth.models import User, AnonymousUser
+from django.test import TestCase
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from imager_images.models import Photo, Album
-from .views import AlbumView
 import factory
 from faker import Faker
 
@@ -46,7 +45,7 @@ class PhotoTestCase(TestCase):
 
     def test_create_photo(self):
         assert len(Photo.objects.all()) == 0
-        test_photo = PhotoFactory.create(user=self.user)
+        PhotoFactory.create(user=self.user)
         assert len(Photo.objects.all()) == 1
 
     def test_photo_user_relationship(self):
@@ -76,7 +75,7 @@ class AlbumTestCase(TestCase):
 
     def test_create_album(self):
         self.assertEqual(Album.objects.count(), 0)
-        test_album = AlbumFactory.create(user=self.user)
+        AlbumFactory.create(user=self.user)
         self.assertEqual(Album.objects.count(), 1)
 
     def test_album_user_relationship(self):
@@ -134,7 +133,8 @@ class AlbumViewTests(TestCase):
         cls.album = AlbumFactory.create(user=cls.user)
         cls.album.photos.add(cls.photo)
         cls.album.save()
-        cls.public_album = AlbumFactory.create(user=cls.user, published='public')
+        cls.public_album = AlbumFactory.create(
+            user=cls.user, published='public')
 
     def test_album_view_redirects_anonymous_user(self):
         resp = self.client.get(reverse(
@@ -164,7 +164,7 @@ class AlbumViewTests(TestCase):
             'images:album_detail',
             kwargs={'pk': self.album.pk}),
             follow=True)
-        assert resp.status_code == 403
+        self.assertEqual(resp.status_code, 403)
 
     def test_public_album_non_owner_viewer(self):
         curious_user = UserFactory.create(username='biz')
@@ -177,3 +177,75 @@ class AlbumViewTests(TestCase):
             follow=True)
         self.assertTemplateUsed(resp, 'album_detail.html')
         self.assertContains(resp, 'gallery')
+
+
+class PhotoViewTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='chell')
+        cls.user.set_password('longfallboots')
+        cls.user.save()
+        cls.photo = PhotoFactory.create(user=cls.user)
+        cls.album = AlbumFactory.create(user=cls.user)
+        cls.album.photos.add(cls.photo)
+        cls.album.save()
+        cls.public_album = AlbumFactory.create(
+            user=cls.user, published='public')
+        cls.public_photo = PhotoFactory.create(
+            user=cls.user, published='public')
+
+    def test_photo_view_redirects_anonymous_user(self):
+        resp = self.client.get(reverse(
+            'images:photo_detail',
+            kwargs={'pk': self.photo.pk},
+        ),
+            follow=True)
+
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/photo/{}/'.format(self.photo.pk)
+        )
+
+    def test_photo_view_auth_user(self):
+        self.client.login(username='chell', password='longfallboots')
+        resp = self.client.get(
+            reverse(
+                'images:photo_detail',
+                kwargs={'pk': self.photo.pk}
+            ),
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'photo_detail.html')
+        self.assertContains(resp, 'photo_detail', count=1)
+
+    def test_private_photo_view_unauthorized_user(self):
+        devious_user = UserFactory.create(username='wheatley')
+        devious_user.set_password('space')
+        devious_user.save()
+        self.client.login(username='wheatley', password='space')
+        resp = self.client.get(
+            reverse(
+                'images:photo_detail',
+                kwargs={'pk': self.photo.pk}
+            ),
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 403)
+
+    def test_public_photo_non_owner_viewer(self):
+        curious_user = UserFactory.create(username='turret')
+        curious_user.set_password('iseeyou')
+        curious_user.save()
+        self.client.login(username='turret', password='iseeyou')
+        resp = self.client.get(
+            reverse(
+                'images:photo_detail',
+                kwargs={'pk': self.public_photo.pk}
+            ),
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'photo_detail.html')
+        self.assertContains(resp, 'photo_detail', count=1)

@@ -19,3 +19,10 @@ class AlbumView(DetailView):
 class PhotoView(DetailView):
     model = Photo
     template_name = 'photo_detail.html'
+
+    def get_object(self, **kwargs):
+        obj = super(PhotoView, self).get_object(**kwargs)
+        if obj.user != self.request.user:
+            raise PermissionDenied
+        else:
+            return obj

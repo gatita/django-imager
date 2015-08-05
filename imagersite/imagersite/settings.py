@@ -132,6 +132,8 @@ SITE_ID = 1
 
 LOGIN_URL = 'auth_login'
 LOGIN_REDIRECT_URL = 'profile:profile'
+
+# Email
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
 
 

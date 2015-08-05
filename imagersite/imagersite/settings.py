@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://' + os.path.join(BASE_DIR, 'db.postgresql_psycopg2')
+        default=os.environ.get("IMAGER_DATABASE_URL")
     )
 }
 
@@ -132,8 +132,13 @@ SITE_ID = 1
 
 LOGIN_URL = 'auth_login'
 LOGIN_REDIRECT_URL = 'profile:profile'
-EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
-
+EMAIL_BACKEND = os.environ.get('IMAGER_EMAIL_BACKEND')
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ.get('IMAGER_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('IMAGER_EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = os.environ.get('IMAGER_EMAIL_HOST_USER')
 
 # Bootstrap
 

@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get("IMAGER_DATABASE_URL")
+        default=os.environ.get('IMAGER_DATABASE_URL')
     )
 }
 

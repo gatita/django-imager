@@ -89,7 +89,8 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://' + os.path.join(BASE_DIR, 'db.postgresql_psycopg2')
+        default=os.environ.get('IMAGER_DATABASE_URL')
+        # 'postgresql://' + os.path.join(BASE_DIR, 'db.postgresql_psycopg2')
     )
 }
 

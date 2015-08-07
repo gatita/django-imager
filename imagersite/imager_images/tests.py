@@ -296,3 +296,41 @@ class PhotoCreateTests(TestCase):
             )
         self.assertFalse(resp.context['form'].is_valid())
         self.assertContains(resp, 'This field is required.')
+
+
+class AlbumCreateTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='foo')
+        cls.user.set_password('secret')
+        cls.user.save()
+        cls.photo = PhotoFactory.create(user=cls.user)
+
+    def test_album_add_redirects_anonymous_user(self):
+        resp = self.client.get(reverse(
+            'images:album_add'),
+            follow=True
+        )
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/albums/add/'
+        )
+
+    def test_album_add_auth_get(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.get(reverse('images:album_add'))
+        self.assertTemplateUsed(resp, 'album_form.html')
+
+    def test_album_add_auth_user_post(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.post(reverse(
+            'images:album_add'),
+            {'photo': self.photo,
+             'title': 'test album',
+             'published': 'private'},
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertRedirects(resp, reverse('images:library'))
+        self.assertContains(resp, 'gallery-item', count=2)

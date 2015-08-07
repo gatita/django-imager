@@ -44,6 +44,7 @@ class Album(models.Model):
     photos = models.ManyToManyField(
         Photo,
         related_name='albums',
+        blank=True
     )
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True)
@@ -54,7 +55,9 @@ class Album(models.Model):
     cover = models.ForeignKey(
         Photo,
         related_name='album_cover',
-        null=True)
+        null=True,
+        blank=True
+    )
 
     published = models.CharField(
         max_length=255,

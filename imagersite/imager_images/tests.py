@@ -334,3 +334,25 @@ class AlbumCreateTests(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertRedirects(resp, reverse('images:library'))
         self.assertContains(resp, 'gallery-item', count=2)
+
+
+class PhotoEditTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='foo')
+        cls.user.set_password('secret')
+        cls.user.save()
+        cls.photo = PhotoFactory.create(user=cls.user)
+
+    def test_photo_view_redirects_anonymous_user(self):
+        resp = self.client.get(reverse(
+            'images:photo_edit',
+            kwargs={'pk': self.photo.pk},
+        ),
+            follow=True)
+
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/photos/{}/edit'.format(self.photo.pk)
+        )

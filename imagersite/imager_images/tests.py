@@ -249,3 +249,50 @@ class PhotoViewTests(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed(resp, 'photo_detail.html')
         self.assertContains(resp, 'photo_detail', count=1)
+
+
+class PhotoCreateTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='foo')
+        cls.user.set_password('secret')
+        cls.user.save()
+
+    def test_photo_add_redirects_anonymous_user(self):
+        resp = self.client.get(reverse(
+            'images:photo_add'),
+            follow=True
+        )
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/photos/add/'
+        )
+
+    def test_photo_add_auth_get(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.get(reverse('images:photo_add'))
+        self.assertTemplateUsed(resp, 'photo_form.html')
+
+    def test_photo_add_auth_user_post(self):
+        self.client.login(username='foo', password='secret')
+        with open('chell.jpg', 'rb') as fh:
+            resp = self.client.post(reverse(
+                'images:photo_add'),
+                {'img': fh, 'title': 'Chell', 'published': 'private'},
+                follow=True
+            )
+        self.assertRedirects(resp, reverse('images:library'))
+        self.assertContains(resp, 'gallery-item', count=1)
+        self.assertContains(resp, 'Chell', count=2)
+
+    def test_photo_add_auth_user_post_invalid(self):
+        self.client.login(username='foo', password='secret')
+        with open('chell.jpg', 'rb') as fh:
+            resp = self.client.post(reverse(
+                'images:photo_add'),
+                {'img': fh, 'published': 'private'},
+                follow=True
+            )
+        self.assertFalse(resp.context['form'].is_valid())
+        self.assertContains(resp, 'This field is required.')

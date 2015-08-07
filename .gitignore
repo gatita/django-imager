@@ -3,8 +3,8 @@ media/
 !media/.gitkeep
 
 staticfiles/
-!staticfiles/.gitkeep
 
+imagersite/static/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

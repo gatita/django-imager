@@ -117,7 +117,7 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 from storages.backends.s3boto import S3BotoStorage
 
-StaticS3BotoStorage = lambda: S3BotoStorage(location='static')
+# StaticS3BotoStorage = lambda: S3BotoStorage(location='static')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'imagersite/sitestatic'),
@@ -125,7 +125,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_DIRECTORY = "/static/"
 STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN + STATIC_DIRECTORY
-STATICFILES_STORAGE = StaticS3BotoStorage
+STATICFILES_STORAGE = lambda: S3BotoStorage(location='static')
 
 # Media file handling
 

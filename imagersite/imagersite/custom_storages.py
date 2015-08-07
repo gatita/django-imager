@@ -12,21 +12,21 @@ from django.conf import settings
 # )
 
 
-class StaticRootS3BotoStorage(S3BotoStorage):
+class StaticS3BotoStorage(S3BotoStorage):
     """
     Storage for static files.
     """
 
     def __init__(self, *args, **kwargs):
         kwargs['location'] = settings.STATIC_DIRECTORY
-        super(StaticRootS3BotoStorage, self).__init__(*args, **kwargs)
+        super(StaticS3BotoStorage, self).__init__(*args, **kwargs)
 
 
-class MediaRootS3BotoStorage(S3BotoStorage):
+class MediaS3BotoStorage(S3BotoStorage):
     """
     Storage for uploaded media files.
     """
 
     def __init__(self, *args, **kwargs):
         kwargs['location'] = settings.MEDIA_DIRECTORY
-        super(MediaRootS3BotoStorage, self).__init__(*args, **kwargs)
+        super(MediaS3BotoStorage, self).__init__(*args, **kwargs)

@@ -95,7 +95,6 @@ DATABASES = {
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Los_Angeles'
@@ -104,29 +103,32 @@ USE_L10N = True
 USE_TZ = True
 
 
-# S3 Storage SettingsS
+# S3 Storage Settings
 
-AWS_STORAGE_BUCKET_NAME = os.environ.get('IMAGER_AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = os.environ.get('IMAGER_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('IMAGER_AWS_SECRET_ACCESS_KEY')
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_STORAGE_BUCKET_NAME = os.environ.get('IMAGER_AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
+
+DEFAULT_FILE_STORAGE = 'imagersite.custom_storages.MediaS3BotoStorage'
+STATICFILES_STORAGE = 'imagersite.custom_storages.StaticS3BotoStorage'
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'imagersite/sitestatic'),
 ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_DIRECTORY = "static"
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATIC_DIRECTORY)
-STATICFILES_STORAGE = 'imagersite.custom_storages.StaticS3BotoStorage'
+STATIC_DIRECTORY = 'static'
+STATIC_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, STATIC_DIRECTORY)
 
-# Media file handling
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# Media files
+
+MEDIA_DIRECTORY = 'media'
+MEDIA_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, MEDIA_DIRECTORY)
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Registration Settings

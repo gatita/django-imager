@@ -118,7 +118,7 @@ STATICFILES_STORAGE = 'imagersite.custom_storages.StaticS3BotoStorage'
 # Static files (CSS, JavaScript, Images)
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'imagersite/sitestatic'),
+    os.path.join(BASE_DIR, 'imagersite', 'sitestatic'),
 ]
 STATIC_DIRECTORY = 'static'
 STATIC_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, STATIC_DIRECTORY)

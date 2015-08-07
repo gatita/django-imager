@@ -104,7 +104,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# S3 Storage Settings
+# S3 Storage SettingsS
 
 AWS_STORAGE_BUCKET_NAME = os.environ.get('IMAGER_AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = os.environ.get('IMAGER_AWS_ACCESS_KEY_ID')
@@ -118,9 +118,10 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'imagersite/sitestatic'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_DIRECTORY = "static"
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATIC_DIRECTORY)
+STATICFILES_STORAGE = 'imagersite.custom_storages.StaticS3BotoStorage'
 
 # Media file handling
 

@@ -118,7 +118,7 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'imagersite/sitestatic'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_DIRECTORY = "static"
 STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATIC_DIRECTORY)
 STATICFILES_STORAGE = 'imagersite.custom_storages.StaticS3BotoStorage'

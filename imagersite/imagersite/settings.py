@@ -25,8 +25,9 @@ SECRET_KEY = os.environ.get('IMAGER_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('IMAGER_DEBUG', False)
+TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = os.environ.get('IMAGER_ALLOWED_HOSTS').split()
+ALLOWED_HOSTS = os.environ.get('IMAGER_ALLOWED_HOSTS', '').split()
 
 
 # Application definition
@@ -112,7 +113,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 # whenever a request comes in that starts with /static/
 # django will look inside this folder, and any path segments
@@ -139,3 +140,13 @@ LOGIN_REDIRECT_URL = 'profile:profile'
 BOOTSTRAP3 = {
     'horizontal_field_class': 'col-md-6',
 }
+
+# Email Settings
+EMAIL_BACKEND = os.environ.get('IMAGER_EMAIL_BACKEND')                               
+EMAIL_USE_TLS = True                                                                 
+EMAIL_HOST = 'smtp.gmail.com'                                                        
+EMAIL_HOST_USER = os.environ.get('IMAGER_EMAIL_HOST_USER')                           
+EMAIL_HOST_PASSWORD = os.environ.get('IMAGER_EMAIL_HOST_PASSWORD')                   
+EMAIL_PORT = 587                                                                     
+DEFAULT_FROM_EMAIL = os.environ.get('IMAGER_EMAIL_HOST_USER')    
+

@@ -120,7 +120,7 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_DIRECTORY = "static"
-STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN + STATIC_DIRECTORY
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATIC_DIRECTORY)
 STATICFILES_STORAGE = 'imagersite.storages.StaticS3BotoStorage'
 
 # Media file handling

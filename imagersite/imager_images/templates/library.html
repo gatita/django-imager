@@ -15,6 +15,7 @@
 <div id="gallery">
 <a class="btn btn-default" href="{% url 'images:album_add' %}" role="button">New Album</a>
 <a class="btn btn-default" href="{% url 'images:photo_add' %}" role="button">New Photo</a>
+
 <h3>Albums</h3>
 {% for album in user.albums.all %}
     <div class="gallery-item">
@@ -24,25 +25,30 @@
                     <img class="thumbnail" src="{{ im.url }}"/>
                 </a>
             {% endthumbnail %}
+
         {% else %}
             {% thumbnail "http://img09.deviantart.net/cee8/i/2012/063/2/d/glados_test_render_by_toughraid3r37890-d4rrcv4.png" "200x200" as im %}
                 <a href="{% url 'images:album_detail' album.id %}">
                     <img class="thumbnail" src="{{ im.url }}" />
                 </a>
             {% endthumbnail %}
+
         {% endif %}
+
         <h6>{{ album.title }}</h6>
         <a class="edit_link album_edit_link" href="{% url 'images:album_edit' album.id %}">Edit This Album</a>
     </div>
 {% endfor %}
+
 <h3>Photos</h3>
 {% for photo in user.photos.all %}
     <div class="gallery-item">
         {% thumbnail photo.img "200x200" as im %}
-        <a class="fancybox" rel="group" href="{{ photo.img.url }}" title='<a class="fb-title" href="{% url "images:photo_detail" photo.id %}">{{ photo.title }}</a>'>
-            <img class="thumbnail" src="{{ im.url }}"/>
-        </a>
+            <a class="fancybox" rel="group" href="{{ photo.img.url }}" title="{{ photo.title }}">
+                <img class="thumbnail" src="{{ im.url }}"/>
+            </a>
         {% endthumbnail %}
+
         <h6><a href="{% url 'images:photo_detail' photo.id %}">{{ photo.title }}</a></h6>
         <a class="edit_link photo_edit_link" href="{% url 'images:photo_edit' photo.id %}">Edit This Photo</a>
     </div>

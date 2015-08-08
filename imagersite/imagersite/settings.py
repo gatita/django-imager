@@ -128,7 +128,6 @@ STATIC_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, STATIC_DIRECTORY)
 
 MEDIA_DIRECTORY = 'media'
 MEDIA_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, MEDIA_DIRECTORY)
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Registration Settings

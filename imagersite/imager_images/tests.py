@@ -479,7 +479,6 @@ class AlbumEditTests(TestCase):
             ),
             follow=True
         )
-
         self.assertEqual(
             resp.context['form'].initial['title'],
             'test update title')

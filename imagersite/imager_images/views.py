@@ -57,9 +57,21 @@ class PhotoEdit(UpdateView):
     template_name = 'photo_edit.html'
     success_url = reverse_lazy('images:library')
 
+    def get_object(self, **kwargs):
+        obj = super(PhotoEdit, self).get_object(**kwargs)
+        if obj.user != self.request.user:
+                raise PermissionDenied
+        return obj
+
 
 class AlbumEdit(UpdateView):
     model = Album
     fields = ['title', 'description', 'cover', 'photos', 'published']
     template_name = 'album_edit.html'
     success_url = reverse_lazy('images:library')
+
+    def get_object(self, **kwargs):
+        obj = super(AlbumEdit, self).get_object(**kwargs)
+        if obj.user != self.request.user:
+                raise PermissionDenied
+        return obj

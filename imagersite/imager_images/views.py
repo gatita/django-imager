@@ -46,6 +46,16 @@ class AlbumCreate(CreateView):
     fields = ['title', 'description', 'photos', 'cover']
     success_url = reverse_lazy('images:library')
 
+    def get_form(self):
+        form = super(AlbumCreate, self).get_form()
+        form.fields['photos'].queryset = Photo.objects.filter(
+            user=self.request.user
+        )
+        form.fields['cover'].queryset = Photo.objects.filter(
+            user=self.request.user
+        )
+        return form
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(AlbumCreate, self).form_valid(form)
@@ -75,3 +85,13 @@ class AlbumEdit(UpdateView):
         if obj.user != self.request.user:
                 raise PermissionDenied
         return obj
+
+    def get_form(self):
+        form = super(AlbumEdit, self).get_form()
+        form.fields['photos'].queryset = Photo.objects.filter(
+            user=self.request.user
+        )
+        form.fields['cover'].queryset = Photo.objects.filter(
+            user=self.request.user
+        )
+        return form

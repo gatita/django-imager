@@ -27,11 +27,12 @@ class ImagerProfile(models.Model):
     )
 
     camera = models.CharField(
-        max_length=255
+        max_length=255,
+        blank=True
     )
-    address = models.TextField()
-    website = models.URLField()
-    photo_genre = models.CharField(max_length=255)
+    address = models.TextField(blank=True)
+    website = models.URLField(blank=True)
+    photo_genre = models.CharField(max_length=255, blank=True)
 
     objects = models.Manager()
     active = ActiveProfileManager()

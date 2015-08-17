@@ -5,6 +5,16 @@
 {% load static from staticfiles %}
 {% load i18n %}
 
+{% block head %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script type="text/javascript" src="//algorithmia.com/v1/clients/js/algorithmia-0.2.0.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.0.1/sweetalert-dev.js"></script>
+    <script src="{% static 'js/facetagger.js' %}"type="text/javascript"></script>
+    <script src="{% static 'js/relations.js' %}"type="text/javascript"></script>
+    <link href="{% static 'css/facetagger.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/relations.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block title %}{% trans "Library" %}{% endblock %}
 
 {% block main_div_config %}

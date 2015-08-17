@@ -1,0 +1,40 @@
+#photo-container
+{
+	position: relative;
+	text-align: center;
+}
+
+#photo-container img
+{
+	width: 600px;
+}
+
+.facelabel
+{
+	position: absolute;
+	cursor: pointer;
+	text-align: left;
+}
+
+.facelabel .border
+{
+	border: solid 4px #FFFF00;
+}
+
+.facelabel .name
+{
+	display: inline-block;
+	margin-top: 5px;
+	font-size: 12px;
+	padding: 6px;
+	color: #444;
+	background-color: #FFFF00
+}
+
+.delete-btn
+{
+	position: absolute;
+	right: 0px;
+	bottom: -20px;
+	font-size: 12px;
+}

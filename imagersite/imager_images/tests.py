@@ -249,3 +249,253 @@ class PhotoViewTests(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed(resp, 'photo_detail.html')
         self.assertContains(resp, 'photo_detail', count=1)
+
+
+class PhotoCreateTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='foo')
+        cls.user.set_password('secret')
+        cls.user.save()
+
+    def test_photo_add_redirects_anonymous_user(self):
+        resp = self.client.get(reverse(
+            'images:photo_add'),
+            follow=True
+        )
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/photos/add/'
+        )
+
+    def test_photo_add_auth_get(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.get(reverse('images:photo_add'))
+        self.assertTemplateUsed(resp, 'photo_form.html')
+
+    def test_photo_add_auth_user_post(self):
+        self.client.login(username='foo', password='secret')
+        with open('chell.jpg', 'rb') as fh:
+            resp = self.client.post(reverse(
+                'images:photo_add'),
+                {'img': fh, 'title': 'Chell', 'published': 'private'},
+                follow=True
+            )
+        self.assertRedirects(resp, reverse('images:library'))
+        self.assertContains(resp, 'gallery-item', count=1)
+        self.assertContains(resp, 'Chell', count=2)
+
+    def test_photo_add_auth_user_post_invalid(self):
+        self.client.login(username='foo', password='secret')
+        with open('chell.jpg', 'rb') as fh:
+            resp = self.client.post(reverse(
+                'images:photo_add'),
+                {'img': fh, 'published': 'private'},
+                follow=True
+            )
+        self.assertFalse(resp.context['form'].is_valid())
+        self.assertContains(resp, 'This field is required.')
+
+
+class AlbumCreateTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='foo')
+        cls.user.set_password('secret')
+        cls.user.save()
+        cls.photo = PhotoFactory.create(user=cls.user)
+
+    def test_album_add_redirects_anonymous_user(self):
+        resp = self.client.get(reverse(
+            'images:album_add'),
+            follow=True
+        )
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/albums/add/'
+        )
+
+    def test_album_add_auth_get(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.get(reverse('images:album_add'))
+        self.assertTemplateUsed(resp, 'album_form.html')
+
+    def test_album_add_auth_user_post(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.post(reverse(
+            'images:album_add'),
+            {'photo': self.photo,
+             'title': 'test album',
+             'published': 'private'},
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertRedirects(resp, reverse('images:library'))
+        self.assertContains(resp, 'gallery-item', count=2)
+
+
+class PhotoEditTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='foo')
+        cls.user.set_password('secret')
+        cls.user.save()
+        cls.photo = PhotoFactory.create(user=cls.user)
+
+    def test_photo_edit_redirects_anonymous_user(self):
+        resp = self.client.get(
+            reverse(
+                'images:photo_edit',
+                kwargs={'pk': self.photo.pk}),
+            follow=True
+        )
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/photos/{}/edit'.format(self.photo.pk)
+        )
+
+    def test_photo_edit_auth_user_get(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.get(
+            reverse(
+                'images:photo_edit',
+                kwargs={'pk': self.photo.pk}
+            ),
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'photo_edit.html')
+        self.assertEqual(
+            resp.context['form'].initial['title'],
+            self.photo.title)
+        self.assertEqual(
+            resp.context['form'].initial['description'],
+            self.photo.description)
+
+    def test_photo_edit_auth_user_post(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.post(
+            reverse(
+                'images:photo_edit',
+                kwargs={'pk': self.photo.pk}
+            ),
+            {'title': 'test update title',
+             'description': 'test update description',
+             'published': 'public'},
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertRedirects(resp, reverse('images:library'))
+        resp = self.client.get(
+            reverse(
+                'images:photo_edit',
+                kwargs={'pk': self.photo.pk}
+            ),
+            follow=True
+        )
+        self.assertEqual(
+            resp.context['form'].initial['title'],
+            'test update title')
+        self.assertEqual(
+            resp.context['form'].initial['description'],
+            'test update description')
+
+    def test_photo_edit_unauthorized_user(self):
+        devious_user = UserFactory.create(username='wheatley')
+        devious_user.set_password('space')
+        devious_user.save()
+        self.client.login(username='wheatley', password='space')
+        resp = self.client.get(
+            reverse(
+                'images:photo_edit',
+                kwargs={'pk': self.photo.pk}
+            ),
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 403)
+
+
+class AlbumEditTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='foo')
+        cls.user.set_password('secret')
+        cls.user.save()
+        cls.photo = PhotoFactory.create(user=cls.user)
+        cls.album = AlbumFactory.create(user=cls.user)
+
+    def test_album_edit_redirects_anonymous_user(self):
+        resp = self.client.get(
+            reverse(
+                'images:album_edit',
+                kwargs={'pk': self.album.pk}),
+            follow=True
+        )
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/albums/{}/edit'.format(self.photo.pk)
+        )
+
+    def test_album_edit_auth_user_get(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.get(
+            reverse(
+                'images:album_edit',
+                kwargs={'pk': self.album.pk}
+            ),
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'album_edit.html')
+        self.assertEqual(
+            resp.context['form'].initial['title'],
+            self.album.title)
+        self.assertEqual(
+            resp.context['form'].initial['description'],
+            self.album.description)
+
+    def test_album_edit_auth_user_post(self):
+        self.client.login(username='foo', password='secret')
+        resp = self.client.post(
+            reverse(
+                'images:album_edit',
+                kwargs={'pk': self.album.pk}
+            ),
+            {'title': 'test update title',
+             'description': 'test update description',
+             'published': 'public'},
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertRedirects(resp, reverse('images:library'))
+        resp = self.client.get(
+            reverse(
+                'images:album_edit',
+                kwargs={'pk': self.album.pk}
+            ),
+            follow=True
+        )
+        self.assertEqual(
+            resp.context['form'].initial['title'],
+            'test update title')
+        self.assertEqual(
+            resp.context['form'].initial['description'],
+            'test update description')
+
+    def test_album_edit_unauthorized_user(self):
+        devious_user = UserFactory.create(username='wheatley')
+        devious_user.set_password('space')
+        devious_user.save()
+        self.client.login(username='wheatley', password='space')
+        resp = self.client.get(
+            reverse(
+                'images:album_edit',
+                kwargs={'pk': self.album.pk}
+            ),
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 403)

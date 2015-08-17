@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 import factory
 from .models import ImagerProfile
 
@@ -92,3 +93,48 @@ class ProfileTestCase(TestCase):
                 self.assertFalse(each.profile in active_list)
             else:
                 self.assertTrue(each.profile in active_list)
+
+
+class ProfileEditTestCase(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='chell')
+        cls.user.set_password('longfallboots')
+        cls.user.save()
+
+    def test_profile_edit_redirect_anon_user(self):
+        resp = self.client.get(
+            reverse('profile:profile_edit'),
+            follow=True
+        )
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/profile/edit/'
+        )
+
+    def test_profile_edit_auth_user_get(self):
+        self.client.login(username='chell', password='longfallboots')
+        resp = self.client.get(
+            reverse('profile:profile_edit'),
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertTemplateUsed(resp, 'profile_edit.html')
+        self.assertContains(resp, 'value="chell"')
+        self.assertContains(resp, 'value="{}"'.format(self.user.email))
+
+    def test_profile_edit_auth_user_post(self):
+        self.client.login(username='chell', password='longfallboots')
+        resp = self.client.post(
+            reverse('profile:profile_edit'),
+            {'username': 'testsubject1',
+             'camera': 'nikon',
+             'photo_genre': 'abstract'},
+            follow=True
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertRedirects(resp, reverse('profile:profile'))
+        self.assertContains(resp, 'testsubject1')
+        self.assertContains(resp, 'nikon')
+        self.assertContains(resp, 'abstract')

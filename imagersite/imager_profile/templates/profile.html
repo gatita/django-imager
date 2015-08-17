@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 
+{% load bootstrap3 %}
+{% load thumbnail %}
+{% load static from staticfiles %}
+{% load i18n %}
+
+{% block title %}{% trans "Profile" %}{% endblock %}
+
 {% block main %}
 
 <div class='profile_container'>
-    <h2>{{ user.profile }}</h2>
+    <h2>{{ user.profile }}<a class="edit_link profile_edit_link" href="{% url 'profile:profile_edit' %}">Edit Profile</a></h2>
 
     <div class="viewscreen" id="user_info">
         <h3>User Info</h3>

@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 import os
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,13 +21,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%4cs8aj%0os@)ti#dopys-*8xrq@i$7k$9@i()pd+*vj5o=p+d'
+
+SECRET_KEY = os.environ.get('IMAGER_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+DEBUG = os.environ.get('IMAGER_DEBUG', False)
+TEMPLATE_DEBUG = DEBUG
+
+ALLOWED_HOSTS = os.environ.get('IMAGER_ALLOWED_HOSTS', '').split()
 
 
 # Application definition
@@ -38,6 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'imager_profile',
     'imager_images',
     'bootstrap3',
@@ -74,12 +81,6 @@ TEMPLATES = [
     },
 ]
 
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'imagersite/sitestatic'),
-]
-
-
 WSGI_APPLICATION = 'imagersite.wsgi.application'
 
 
@@ -87,48 +88,49 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'imager',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('IMAGER_DATABASE_URL')
+    )
 }
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'America/Los_Angeles'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
+# S3 Storage Settings
+
+AWS_ACCESS_KEY_ID = os.environ.get('IMAGER_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('IMAGER_AWS_SECRET_ACCESS_KEY')
+
+AWS_STORAGE_BUCKET_NAME = os.environ.get('IMAGER_AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
+
+DEFAULT_FILE_STORAGE = 'imagersite.custom_storages.MediaS3BotoStorage'
+STATICFILES_STORAGE = 'imagersite.custom_storages.StaticS3BotoStorage'
+
+
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'imagersite', 'sitestatic'),
+]
+STATIC_DIRECTORY = 'static'
+STATIC_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, STATIC_DIRECTORY)
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-# whenever a request comes in that starts with /static/
-# django will look inside this folder, and any path segments
-# that come after that will be relevant to that route
+# Media files
 
-# Media file handling
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_DIRECTORY = 'media'
+MEDIA_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, MEDIA_DIRECTORY)
 
 
 # Registration Settings
-
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
@@ -136,7 +138,6 @@ SITE_ID = 1
 
 LOGIN_URL = 'auth_login'
 LOGIN_REDIRECT_URL = 'profile:profile'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Bootstrap
@@ -144,3 +145,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 BOOTSTRAP3 = {
     'horizontal_field_class': 'col-md-6',
 }
+
+
+# Email Settings
+
+EMAIL_BACKEND = os.environ.get('IMAGER_EMAIL_BACKEND')
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ.get('IMAGER_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('IMAGER_EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = os.environ.get('IMAGER_EMAIL_HOST_USER')

@@ -20,7 +20,7 @@ class Photo(models.Model):
     )
     img = models.ImageField(upload_to="photo_files/%Y-%m-%d")
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(null=True, blank=True)
@@ -44,9 +44,10 @@ class Album(models.Model):
     photos = models.ManyToManyField(
         Photo,
         related_name='albums',
+        blank=True
     )
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(null=True, blank=True)
@@ -54,7 +55,9 @@ class Album(models.Model):
     cover = models.ForeignKey(
         Photo,
         related_name='album_cover',
-        null=True)
+        null=True,
+        blank=True
+    )
 
     published = models.CharField(
         max_length=255,

@@ -67,3 +67,20 @@ class Album(models.Model):
 
     def __str__(self):
         return "{} - Album by {}".format(self.title, self.user.username)
+
+
+@python_2_unicode_compatible
+class Face(models.Model):
+    photo = models.ForeignKey(
+        Photo,
+        related_name='faces',
+        null=False
+    )
+    name = models.CharField(max_length=255)
+    x = models.IntegerField()
+    y = models.IntegerField()
+    width = models.IntegerField()
+    height = models.IntegerField()
+
+    def __str__(self):
+        return "Face: {}: {}".format(self.photo.title, self.name)

@@ -50,7 +50,7 @@ class AlbumView(DetailView):
 class PhotoView(DetailView):
     model = Photo
     template_name = 'photo_detail.html'
-    # detect = False
+    detect = False
 
     def get_object(self, **kwargs):
         obj = super(PhotoView, self).get_object(**kwargs)
@@ -60,7 +60,7 @@ class PhotoView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PhotoView, self).get_context_data(**kwargs)
-        if len(self.object.faces.all()) == 0:
+        if self.detect and len(self.object.faces.all()) == 0:
             get_faces(self.object)
 
         context['faces'] = self.object.faces.all()

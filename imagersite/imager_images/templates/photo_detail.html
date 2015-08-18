@@ -23,8 +23,11 @@
 
 
 {% block main %}
-<h3>{{ photo.title }}</h3>
-<h4>{{ photo.description }}</h4>
+<div>
+    <h3>{{ photo.title }}</h3>
+    <h4>{{ photo.description }}</h4>
+    <a id="facebutton" class="btn btn-default" href="{% url 'images:detect_faces' photo.id %}" role="button">Detect Faces</a>
+</div>
 
 <img class="photo_detail" src="{{ photo.img.url }}" />
 

@@ -26,6 +26,13 @@ urlpatterns = [
         name='photo_detail'
     ),
     url(
+        r'^photo/(?P<pk>\d+)/detect$',
+        login_required(
+            PhotoView.as_view(detect=True)
+        ),
+        name='detect_faces'
+    ),
+    url(
         r'^photos/add/',
         login_required(
             PhotoCreate.as_view()

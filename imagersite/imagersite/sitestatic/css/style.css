@@ -284,6 +284,10 @@ footer {
     color: rgba(250, 211, 29, .7);
 }
 
+#facebutton {
+    margin-bottom: 20px;
+}
+
 /* Edit Links -------------------- */
 
 .edit_link,

@@ -4,7 +4,32 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.exceptions import PermissionDenied
-from models import Photo, Album
+from models import Photo, Album, Face
+import os
+
+
+def get_faces(photo):
+    import Algorithmia
+    import base64
+    Algorithmia.apiKey = os.environ.get('ALGORITHMIA_KEY')
+
+    with open(photo.img.path, 'rb') as img:
+        b64 = base64.b64encode(img.read())
+
+    rectangles = Algorithmia.algo("/ANaimi/FaceDetection/0.1.2").pipe(b64)
+
+    faces = []
+    for rect in rectangles:
+        face = Face()
+        face.photo = photo
+        face.name = '?'
+        face.x = rect['x']
+        face.y = rect['y']
+        face.width = rect['width']
+        face.height = rect['height']
+        face.save()
+        faces.append(face)
+    return faces
 
 
 class AlbumView(DetailView):
@@ -26,6 +51,7 @@ class PhotoView(DetailView):
         obj = super(PhotoView, self).get_object(**kwargs)
         if obj.published != 'public' and obj.user != self.request.user:
                 raise PermissionDenied
+        import pdb; pdb.set_trace()
         return obj
 
 

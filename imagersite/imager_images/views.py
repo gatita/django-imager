@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.core.urlresolvers import reverse_lazy
+from django.core.files.storage import default_storage
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.exceptions import PermissionDenied
@@ -8,12 +9,15 @@ from models import Photo, Album, Face
 import os
 
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 def get_faces(photo):
     import Algorithmia
     import base64
     Algorithmia.apiKey = os.environ.get('ALGORITHMIA_KEY')
 
-    with open(photo.img.path, 'rb') as img:
+    with default_storage.open(photo.img.name, 'rb') as img:
         b64 = base64.b64encode(img.read())
 
     rectangles = Algorithmia.algo("/ANaimi/FaceDetection/0.1.2").pipe(b64)
@@ -29,7 +33,7 @@ def get_faces(photo):
         face.height = rect['height']
         face.save()
         faces.append(face)
-    return faces
+    print faces
 
 
 class AlbumView(DetailView):
@@ -46,13 +50,21 @@ class AlbumView(DetailView):
 class PhotoView(DetailView):
     model = Photo
     template_name = 'photo_detail.html'
+    # detect = False
 
     def get_object(self, **kwargs):
         obj = super(PhotoView, self).get_object(**kwargs)
         if obj.published != 'public' and obj.user != self.request.user:
                 raise PermissionDenied
-        import pdb; pdb.set_trace()
         return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(PhotoView, self).get_context_data(**kwargs)
+        if len(self.object.faces.all()) == 0:
+            get_faces(self.object)
+
+        context['faces'] = self.object.faces.all()
+        return context
 
 
 class PhotoCreate(CreateView):

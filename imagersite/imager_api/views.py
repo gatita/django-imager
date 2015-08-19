@@ -13,11 +13,13 @@ class PhotoViewSet(viewsets.ModelViewSet):
     serializer_class = PhotoSerializer
 
     def get_queryset(self):
-        qset = super(PhotoViewSet, self).get_queryset(self)
+        qset = super(PhotoViewSet, self).get_queryset()
         public = Q(published='public')
         if self.request.user.is_anonymous():
-            qset.objects.filter(public)
+            qset = qset.filter(public)
 
         else:
             private = Q(user=self.request.user)
-            qset.objects.filter(public | private).distinct()
+            qset = qset.filter(public | private).distinct()
+        return qset
+

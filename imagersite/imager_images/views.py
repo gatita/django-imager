@@ -33,7 +33,7 @@ def get_faces(photo):
         face.height = rect['height']
         face.save()
         faces.append(face)
-    print faces
+    return faces
 
 
 class AlbumView(DetailView):

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Photo
+from imager_images.models import Photo
 from rest_framework import serializers
 
 

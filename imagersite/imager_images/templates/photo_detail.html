@@ -26,10 +26,14 @@
 <div>
     <h3>{{ photo.title }}</h3>
     <h4>{{ photo.description }}</h4>
-    <a id="facebutton" class="btn btn-default" href="{% url 'images:detect_faces' photo.id %}" role="button">Detect Faces</a>
+    {% if not faces %}
+        <a id="facebutton" class="btn btn-default" href="{% url 'images:detect_faces' photo.id %}" role="button">Detect Faces</a>
+    {% endif %}
 </div>
 
-<img class="photo_detail" src="{{ photo.img.url }}" />
+<div id="photo-container">
+    <img class="photo_detail" src="{{ photo.img.url }}" />
+</div>
 
 <h6>Owned by: {{ photo.user }}</h6>
 <h6>Created: {{ photo.date_created }}</h6>
@@ -43,4 +47,31 @@
     <h6>This photo has not yet been published.</h6>
 
 {% endif %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    FaceTagger.init({
+        container: "#photo-container",
+        labelUrl: "{{photo.id}}/faces",
+        csrf: "{{ csrf_token }}",
+        originalWidth: {{photo.img.width}},
+        originalHeight: {{photo.img.height}},
+        newWidth: $("#photo-container img").width(),
+        newHeight: $("#photo-container img").height()
+    });
+
+    {% for f in faces %}
+        var face = {
+            id: {{f.id}}, 
+            name: "{{f.name}}", 
+            x: {{f.x}},
+            y: {{f.y}}, 
+            width: {{f.width}},
+            height: {{f.height}}
+        };
+
+        FaceTagger.make(face);
+    {% endfor %}
+</script>
 {% endblock %}

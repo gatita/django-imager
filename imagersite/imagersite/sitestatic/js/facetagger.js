@@ -37,7 +37,7 @@ var FaceTagger =
 	{
 		FaceTagger.options = options;
 
-		$(document).on("click", ".facelabel", FaceTagger.changeName);
+		// $(document).on("click", ".facelabel", FaceTagger.changeName);
 	},
 
 	make: function(face)

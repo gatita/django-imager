@@ -251,6 +251,28 @@ class PhotoViewTests(TestCase):
         self.assertContains(resp, 'photo_detail', count=1)
 
 
+class DetectFacesViewTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = UserFactory.create(username='chell')
+        cls.user.set_password('longfallboots')
+        cls.user.save()
+        cls.photo = cls.photo = PhotoFactory.create(user=cls.user)
+
+    def test_detect_faces_redirects_anonymous_user(self):
+        resp = self.client.get(reverse(
+            'images:detect_faces',
+            kwargs={'pk': self.photo.pk},
+        ),
+            follow=True)
+
+        self.assertRedirects(
+            resp,
+            '/accounts/login/?next=/images/photo/{}/detect'.format(self.photo.pk)
+        )
+
+
 class PhotoCreateTests(TestCase):
 
     @classmethod

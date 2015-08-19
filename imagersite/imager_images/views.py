@@ -9,9 +9,6 @@ from models import Photo, Album, Face
 import os
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
 def get_faces(photo):
     import Algorithmia
     import base64

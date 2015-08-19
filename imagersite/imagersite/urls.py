@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^images/', include('imager_images.urls', namespace='images')),
+    url(r'^profile/', include('imager_profile.urls', namespace='profile')),
     url(r'^api/v1/', include('imager_api.urls', namespace='api')),
 ]
 

@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'registration',
     'sorl.thumbnail',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (

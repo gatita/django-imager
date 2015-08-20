@@ -92,6 +92,7 @@ DATABASES = {
         default=os.environ.get('IMAGER_DATABASE_URL')
     )
 }
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 
 # Internationalization

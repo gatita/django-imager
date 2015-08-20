@@ -93,6 +93,10 @@ DATABASES = {
     )
 }
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+DATABASES['default']['NAME'] = 'imagerdb'
+DATABASES['default']['USER'] = 'ubuntu'
+DATABASES['default']['PASSWORD'] = 'somethingwonderful'
+DATABASES['default']['HOST'] = 'localhost'
 
 
 # Internationalization
